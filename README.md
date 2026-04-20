@@ -73,7 +73,7 @@ cd PathoVision
 
 2. Add your trained Keras model:
 ```
-models/model.h5
+models/colon_cancer_cnn_final.h5
 ```
 
 3. Run the app:
