@@ -1,0 +1,6 @@
+data/patients/
+data/*.db
+models/
+__pycache__/
+*.pyc
+.env
