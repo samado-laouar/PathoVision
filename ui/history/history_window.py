@@ -9,6 +9,7 @@ from db.patient_dao import get_all_analyses
 
 class HistoryWindow(QWidget):
     patient_clicked = Signal(int)   # emits patient_id
+    go_home = Signal()
 
     def __init__(self, doctor: dict, parent=None):
         super().__init__(parent)
@@ -23,6 +24,10 @@ class HistoryWindow(QWidget):
 
         # Header
         header = QHBoxLayout()
+        back_btn = QPushButton("← Home")
+        back_btn.setObjectName("backBtn")
+        back_btn.setCursor(Qt.PointingHandCursor)
+        back_btn.clicked.connect(self.go_home.emit)
         title = QLabel("All Analyses")
         title.setObjectName("pageTitle")
         self.filter_combo = QComboBox()
@@ -35,6 +40,8 @@ class HistoryWindow(QWidget):
         self.search_input.setObjectName("searchInput")
         self.search_input.setFixedHeight(36)
         self.search_input.textChanged.connect(self._on_search)
+        header.addWidget(back_btn)
+        header.addSpacing(16)
         header.addWidget(title)
         header.addStretch()
         header.addWidget(self.filter_combo)
@@ -127,6 +134,9 @@ class HistoryWindow(QWidget):
                 border: 1.5px solid #D5D8DC; border-radius: 7px;
                 padding: 0 8px; font-size: 13px; background: #FFF;
             }
+            #backBtn { background: none; border: none; color: #2E86C1;
+                       font-size: 14px; font-weight: 600; padding: 0; }
+            #backBtn:hover { color: #1A5276; }
             #historyTable {
                 border: 1px solid #E5E7EB; border-radius: 8px;
                 gridline-color: #F0F0F0; font-size: 13px;

@@ -13,7 +13,7 @@ from core.predictor import Predictor
 from db.patient_dao import add_analysis, get_patient_by_id
 from ui.patients.patient_selector import PatientSelector
 
-MODEL_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "..", "models", "colon_cancer_cnn_final.h5")
+MODEL_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "..", "models", "best_colon_cancer_model.keras")
 print(f"Loading model from: {MODEL_PATH}")
 
 class PredictWorker(QThread):
@@ -137,11 +137,7 @@ class HistologyWindow(QWidget):
         self.result_label = QLabel("—")
         self.result_label.setObjectName("resultLabel")
         self.result_label.setAlignment(Qt.AlignCenter)
-        self.prob_label = QLabel("")
-        self.prob_label.setObjectName("probLabel")
-        self.prob_label.setAlignment(Qt.AlignCenter)
         rfl.addWidget(self.result_label)
-        rfl.addWidget(self.prob_label)
         rl.addWidget(result_frame)
 
         # Notes
@@ -182,7 +178,6 @@ class HistologyWindow(QWidget):
             )
             self.analyze_btn.setEnabled(True)
             self.result_label.setText("—")
-            self.prob_label.setText("")
             self.save_btn.setEnabled(False)
 
     def _select_patient(self):
@@ -200,7 +195,6 @@ class HistologyWindow(QWidget):
             return
         self.analyze_btn.setEnabled(False)
         self.result_label.setText("Analyzing…")
-        self.prob_label.setText("")
         self._worker = PredictWorker(self.image_path)
         self._worker.finished.connect(self._on_result)
         self._worker.error.connect(self._on_error)
@@ -211,7 +205,6 @@ class HistologyWindow(QWidget):
         self.result_label.setProperty("pathologique", label == "Pathologique")
         self.result_label.style().unpolish(self.result_label)
         self.result_label.style().polish(self.result_label)
-        self.prob_label.setText(f"Confidence: {prob*100:.1f}%")
         self.analyze_btn.setEnabled(True)
         self._last_label = label
         self._last_prob  = prob
@@ -219,7 +212,6 @@ class HistologyWindow(QWidget):
 
     def _on_error(self, msg):
         self.result_label.setText("Error")
-        self.prob_label.setText(msg)
         self.analyze_btn.setEnabled(True)
 
     def _save_result(self):

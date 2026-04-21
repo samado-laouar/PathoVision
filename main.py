@@ -96,6 +96,7 @@ class AppWindow(QStackedWidget):
         self._ihc.go_home.connect(lambda: self.setCurrentIndex(self.PAGE_HOME))
 
         self._history.patient_clicked.connect(self._open_patient_history)
+        self._history.go_home.connect(lambda: self.setCurrentIndex(self.PAGE_HOME))
 
         self._patient_hist.back_requested.connect(lambda: self.setCurrentIndex(self.PAGE_HISTORY))
         self._patient_hist.generate_pdf_requested.connect(self._generate_pdf)

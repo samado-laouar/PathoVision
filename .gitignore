@@ -5,3 +5,6 @@ __pycache__/
 *.pyc
 .env
 app.log
+notebook4ab71cd8ea.ipynb
+training_data/
+tuning_dir/

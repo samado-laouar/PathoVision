@@ -1,3 +1,28 @@
 2026-04-20 12:09:39,296 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
 2026-04-20 12:09:39,298 - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
 2026-04-20 12:09:39,528 - INFO - Raw probability: 0.0000
+2026-04-20 12:25:45,442 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-04-20 12:25:45,445 - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+2026-04-20 12:25:45,623 - INFO - Raw probability: 1.0000
+2026-04-20 12:26:06,919 - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+2026-04-20 12:26:07,068 - INFO - Raw probability: 0.0152
+2026-04-20 17:42:07,549 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-04-20 17:42:07,551 - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+2026-04-20 17:42:07,748 - INFO - Raw probability: 0.0000
+2026-04-20 17:44:33,895 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-04-20 17:44:34,143 - INFO - Raw probability: 0.9946
+2026-04-20 17:45:07,440 - INFO - Raw probability: 0.0979
+2026-04-20 17:46:07,677 - INFO - Raw probability: 0.9842
+2026-04-20 17:46:24,962 - INFO - Raw probability: 0.9863
+2026-04-20 17:46:33,248 - WARNING - 5 out of the last 5 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x00000259976FFB50> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-04-20 17:46:33,268 - INFO - Raw probability: 0.9948
+2026-04-20 17:46:41,104 - WARNING - 6 out of the last 6 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000025997A6FC70> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-04-20 17:46:41,123 - INFO - Raw probability: 0.9981
+2026-04-20 17:46:54,309 - INFO - Raw probability: 0.0979
+2026-04-20 17:47:00,007 - INFO - Raw probability: 0.0068
+2026-04-20 17:47:06,073 - INFO - Raw probability: 0.1200
+2026-04-20 17:47:20,289 - INFO - Raw probability: 0.1200
+2026-04-20 17:48:13,817 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-04-20 17:48:14,060 - INFO - Raw probability: 0.0096
+2026-04-20 17:49:49,577 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-04-20 17:49:49,814 - INFO - Raw probability: 0.9928

@@ -11,6 +11,7 @@ if sys.stderr is None:
 import numpy as np
 from tensorflow.keras.models import load_model
 from PIL import Image
+import cv2
 import logging
 logging.basicConfig(
     filename='app.log',
@@ -24,11 +25,31 @@ class Predictor:
         self.model = load_model(model_path)
 
     def preprocess(self, image_path):
-        img = Image.open(image_path).convert("RGB")
-        img = img.resize((80, 80))  # ⚠️ change to your training size
-        img_array = np.array(img, dtype="float32")
-        img_array = img_array / 255.0          
-        img_array = np.expand_dims(img_array, axis=0)
+        img = cv2.imread(image_path, cv2.IMREAD_COLOR)
+        if img is None:
+            return "Error: Image not found"
+
+        # 2. Handle 16-bit normalization if necessary
+        if img.dtype != np.uint8:
+            img = cv2.normalize(img, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+
+        # 3. Convert BGR to RGB
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+        # 4. Resize to 80x80
+        img = cv2.resize(img, (80, 80), interpolation=cv2.INTER_AREA)
+
+        # 5. Scale and add batch dimension
+        img_array = img.astype('float32') / 255.0
+        img_array = np.expand_dims(img_array, axis=0)  # Shape becomes (1, 80, 80, 3)
+
+        # # 6. Prediction
+        # prediction = model.predict(img_array)
+        # img = Image.open(image_path).convert("RGB")
+        # img = img.resize((80, 80))  # ⚠️ change to your training size
+        # img_array = np.array(img, dtype="float32")
+        # img_array = img_array / 255.0          
+        # img_array = np.expand_dims(img_array, axis=0)
         return img_array
 
     def predict(self, image_path):
@@ -41,7 +62,6 @@ class Predictor:
         prob = prediction[0][0]          # Extract the probability
         
         logging.info(f"Raw probability: {prob:.4f}")
-        
         if prob > 0.5:
             return "Pathologique", prob
         else:
