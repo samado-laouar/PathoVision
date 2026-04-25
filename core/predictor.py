@@ -10,6 +10,7 @@ if sys.stderr is None:
 
 import numpy as np
 from tensorflow.keras.models import load_model
+from tensorflow.keras.applications.resnet50 import preprocess_input
 from PIL import Image
 import cv2
 import logging
@@ -39,9 +40,9 @@ class Predictor:
         # 4. Resize to 80x80
         img = cv2.resize(img, (80, 80), interpolation=cv2.INTER_AREA)
 
-        # 5. Scale and add batch dimension
-        img_array = img.astype('float32') / 255.0
-        img_array = np.expand_dims(img_array, axis=0)  # Shape becomes (1, 80, 80, 3)
+        # 5. Apply ResNet50 preprocessing and add batch dimension
+        img_array = np.expand_dims(img.astype('float32'), axis=0)  # Shape: (1, 80, 80, 3)
+        img_array = preprocess_input(img_array)  # Scales to [-1, 1] as ResNet50 expects
 
         # # 6. Prediction
         # prediction = model.predict(img_array)

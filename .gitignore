@@ -8,3 +8,7 @@ app.log
 notebook4ab71cd8ea.ipynb
 training_data/
 tuning_dir/
+AUTRE IMAGE/
+best_unet.keras
+notebook.ipynb
+unet_segmentation.ipynb

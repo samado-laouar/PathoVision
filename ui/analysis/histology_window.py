@@ -13,7 +13,7 @@ from core.predictor import Predictor
 from db.patient_dao import add_analysis, get_patient_by_id
 from ui.patients.patient_selector import PatientSelector
 
-MODEL_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "..", "models", "best_colon_cancer_model.keras")
+MODEL_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "..", "models", "best_resnet50.keras")
 print(f"Loading model from: {MODEL_PATH}")
 
 class PredictWorker(QThread):

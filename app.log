@@ -26,3 +26,8 @@
 2026-04-20 17:48:14,060 - INFO - Raw probability: 0.0096
 2026-04-20 17:49:49,577 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
 2026-04-20 17:49:49,814 - INFO - Raw probability: 0.9928
+2026-04-21 22:52:32,330 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-04-21 22:52:33,990 - INFO - Raw probability: 0.3317
+2026-04-21 22:53:00,891 - INFO - Raw probability: 0.9998
+2026-04-21 22:54:20,693 - INFO - Raw probability: 0.0019
+2026-04-21 22:55:12,980 - INFO - Raw probability: 0.3317
