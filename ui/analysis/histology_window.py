@@ -13,11 +13,18 @@ from core.predictor import Predictor
 from db.patient_dao import add_analysis, get_patient_by_id
 from ui.patients.patient_selector import PatientSelector
 
-MODEL_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "..", "models", "best_resnet50.keras")
-print(f"Loading model from: {MODEL_PATH}")
+_MODELS_DIR      = os.path.join(os.path.dirname(os.path.dirname(__file__)), "..", "models")
+MODEL_PATH       = os.path.join(_MODELS_DIR, "best_resnet50.keras")
+GLAND_MODEL_PATH = os.path.join(_MODELS_DIR, "best_model_tf.keras")
+print(f"Classifier  : {MODEL_PATH}")
+print(f"Gland model : {GLAND_MODEL_PATH}")
 
+
+# ── Background worker ─────────────────────────────────────────────────────────
 class PredictWorker(QThread):
-    finished = Signal(str, float)
+    # Emits: label, prob, confidence_tier, segmented, overlay_rgb (H,W,3 uint8 or None),
+    #        gland_dice (float or -1), gland_quality (str)
+    finished = Signal(str, float, str, bool, object, float, str)
     error    = Signal(str)
 
     def __init__(self, image_path):
@@ -26,24 +33,40 @@ class PredictWorker(QThread):
 
     def run(self):
         try:
-            predictor = Predictor(MODEL_PATH)
-            label, prob = predictor.predict(self.image_path)
-            self.finished.emit(label, float(prob))
+            predictor = Predictor(
+                classifier_model_path = MODEL_PATH,
+                gland_model_path      = GLAND_MODEL_PATH,
+            )
+            r = predictor.predict(self.image_path)
+            self.finished.emit(
+                r['label'],
+                float(r['probability']),
+                r['confidence_tier'],
+                r['segmented'],
+                r['overlay'],                          # ndarray or None
+                float(r['gland_dice'])  if r['gland_dice']    is not None else -1.0,
+                r['gland_quality']      if r['gland_quality']  is not None else "",
+            )
         except Exception as e:
             self.error.emit(str(e))
 
 
+# ── Main window ───────────────────────────────────────────────────────────────
 class HistologyWindow(QWidget):
     go_home = Signal()
 
     def __init__(self, doctor: dict, parent=None):
         super().__init__(parent)
-        self.doctor = doctor
+        self.doctor           = doctor
         self.selected_patient = None
-        self.image_path = None
-        self._worker = None
+        self.image_path       = None
+        self._worker          = None
+        self._last_label      = None
+        self._last_prob       = None
         self._build_ui()
         self._apply_styles()
+
+    # ── UI construction ───────────────────────────────────────────────────────
 
     def _build_ui(self):
         root = QVBoxLayout(self)
@@ -73,7 +96,7 @@ class HistologyWindow(QWidget):
         content.setContentsMargins(24, 20, 24, 20)
         content.setSpacing(20)
 
-        # ── Left: image panel ──
+        # ── Left: image panel ─────────────────────────────────────────────────
         left = QFrame()
         left.setObjectName("panel")
         left.setMinimumWidth(480)
@@ -92,21 +115,23 @@ class HistologyWindow(QWidget):
         self.load_btn.setFixedHeight(40)
         self.load_btn.setCursor(Qt.PointingHandCursor)
         self.load_btn.clicked.connect(self._load_image)
+
         self.analyze_btn = QPushButton("🔍  Analyze")
         self.analyze_btn.setObjectName("analyzeBtn")
         self.analyze_btn.setFixedHeight(40)
         self.analyze_btn.setEnabled(False)
         self.analyze_btn.setCursor(Qt.PointingHandCursor)
         self.analyze_btn.clicked.connect(self._run_analysis)
+
         btn_row.addWidget(self.load_btn)
         btn_row.addWidget(self.analyze_btn)
         ll.addLayout(btn_row)
         content.addWidget(left, 3)
 
-        # ── Right: results panel ──
+        # ── Right: results panel ──────────────────────────────────────────────
         right = QFrame()
         right.setObjectName("panel")
-        right.setFixedWidth(320)
+        right.setFixedWidth(340)
         rl = QVBoxLayout(right)
         rl.setSpacing(14)
 
@@ -128,7 +153,7 @@ class HistologyWindow(QWidget):
         pfl.addWidget(select_patient_btn)
         rl.addWidget(patient_frame)
 
-        # Result
+        # Classification result
         result_frame = QFrame()
         result_frame.setObjectName("subPanel")
         rfl = QVBoxLayout(result_frame)
@@ -138,7 +163,43 @@ class HistologyWindow(QWidget):
         self.result_label.setObjectName("resultLabel")
         self.result_label.setAlignment(Qt.AlignCenter)
         rfl.addWidget(self.result_label)
+
+        # Confidence badge (prob + tier)
+        self.conf_label = QLabel("")
+        self.conf_label.setObjectName("confLabel")
+        self.conf_label.setAlignment(Qt.AlignCenter)
+        self.conf_label.hide()
+        rfl.addWidget(self.conf_label)
         rl.addWidget(result_frame)
+
+        # Gland segmentation panel (hidden until result arrives)
+        self.gland_frame = QFrame()
+        self.gland_frame.setObjectName("subPanel")
+        gfl = QVBoxLayout(self.gland_frame)
+        gfl.setSpacing(6)
+        gfl.addWidget(QLabel("Gland Segmentation", objectName="sectionLabel"))
+
+        self.dice_label = QLabel("")
+        self.dice_label.setObjectName("diceLabel")
+        self.dice_label.setAlignment(Qt.AlignCenter)
+        gfl.addWidget(self.dice_label)
+
+        self.quality_label = QLabel("")
+        self.quality_label.setObjectName("qualityLabel")
+        self.quality_label.setWordWrap(True)
+        self.quality_label.setAlignment(Qt.AlignCenter)
+        gfl.addWidget(self.quality_label)
+
+        # Toggle button: show overlay / show original
+        self.toggle_btn = QPushButton("🔬  Show Overlay")
+        self.toggle_btn.setObjectName("secondaryBtn")
+        self.toggle_btn.setFixedHeight(34)
+        self.toggle_btn.setCursor(Qt.PointingHandCursor)
+        self.toggle_btn.clicked.connect(self._toggle_overlay)
+        gfl.addWidget(self.toggle_btn)
+
+        self.gland_frame.hide()
+        rl.addWidget(self.gland_frame)
 
         # Notes
         notes_frame = QFrame()
@@ -166,18 +227,24 @@ class HistologyWindow(QWidget):
         wrapper.setLayout(content)
         root.addWidget(wrapper, 1)
 
+    # ── Slots ─────────────────────────────────────────────────────────────────
+
     def _load_image(self):
         path, _ = QFileDialog.getOpenFileName(
             self, "Open Image", "", "Images (*.png *.jpg *.jpeg *.bmp *.tif *.tiff)"
         )
         if path:
-            self.image_path = path
+            self.image_path     = path
+            self._overlay_array = None
+            self._showing_overlay = False
             pix = QPixmap(path)
             self.image_label.setPixmap(
                 pix.scaled(self.image_label.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
             )
             self.analyze_btn.setEnabled(True)
             self.result_label.setText("—")
+            self.conf_label.hide()
+            self.gland_frame.hide()
             self.save_btn.setEnabled(False)
 
     def _select_patient(self):
@@ -188,39 +255,99 @@ class HistologyWindow(QWidget):
     def _on_patient_selected(self, patient):
         self.selected_patient = patient
         name = f"{patient['first_name']} {patient['last_name']}"
-        self.patient_display.setText(f"{name}\n{patient.get('tissue','')} · {patient.get('marqueur','')}")
+        self.patient_display.setText(
+            f"{name}\n{patient.get('tissue', '')} · {patient.get('marqueur', '')}"
+        )
 
     def _run_analysis(self):
         if not self.image_path:
             return
         self.analyze_btn.setEnabled(False)
         self.result_label.setText("Analyzing…")
+        self.conf_label.hide()
+        self.gland_frame.hide()
         self._worker = PredictWorker(self.image_path)
         self._worker.finished.connect(self._on_result)
         self._worker.error.connect(self._on_error)
         self._worker.start()
 
-    def _on_result(self, label, prob):
+    def _on_result(self, label, prob, tier, segmented, overlay_rgb, gland_dice, gland_quality):
+        # ── Classification result ─────────────────────────────────────────────
         self.result_label.setText(label)
         self.result_label.setProperty("pathologique", label == "Pathologique")
         self.result_label.style().unpolish(self.result_label)
         self.result_label.style().polish(self.result_label)
+
+        # Confidence badge
+        tier_emoji = {"high": "🔴", "medium": "🟡", "low": "🟢"}.get(tier, "")
+        self.conf_label.setText(f"{tier_emoji}  {prob * 100:.1f}% — {tier.capitalize()} confidence")
+        self.conf_label.show()
+
         self.analyze_btn.setEnabled(True)
         self._last_label = label
         self._last_prob  = prob
         self.save_btn.setEnabled(self.selected_patient is not None)
 
+        # ── Gland segmentation results ────────────────────────────────────────
+        self._overlay_array   = overlay_rgb   # ndarray (H,W,3) or None
+        self._showing_overlay = False
+
+        if segmented and overlay_rgb is not None:
+            dice_pct = gland_dice * 100
+            self.dice_label.setText(f"Dice Score: {dice_pct:.1f}%")
+            self.quality_label.setText(gland_quality)
+            # Color dice label by quality
+            if gland_dice >= 0.75:
+                self.dice_label.setStyleSheet("color: #1E8449; font-weight: 700; font-size: 15px;")
+            elif gland_dice >= 0.50:
+                self.dice_label.setStyleSheet("color: #D68910; font-weight: 700; font-size: 15px;")
+            else:
+                self.dice_label.setStyleSheet("color: #C0392B; font-weight: 700; font-size: 15px;")
+            self.toggle_btn.setText("🔬  Show Overlay")
+            self.gland_frame.show()
+        else:
+            self.gland_frame.hide()
+
     def _on_error(self, msg):
         self.result_label.setText("Error")
+        self.conf_label.hide()
         self.analyze_btn.setEnabled(True)
+        QMessageBox.critical(self, "Analysis Error", msg)
+
+    def _toggle_overlay(self):
+        """Switch the left image panel between the original and the gland overlay."""
+        if self._overlay_array is None:
+            return
+
+        if not self._showing_overlay:
+            self._display_ndarray(self._overlay_array)
+            self.toggle_btn.setText("🖼️  Show Original")
+            self._showing_overlay = True
+        else:
+            pix = QPixmap(self.image_path)
+            self.image_label.setPixmap(
+                pix.scaled(self.image_label.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            )
+            self.toggle_btn.setText("🔬  Show Overlay")
+            self._showing_overlay = False
+
+    def _display_ndarray(self, rgb_array: np.ndarray):
+        """Convert a (H,W,3) uint8 RGB ndarray to QPixmap and show it."""
+        h, w, ch = rgb_array.shape
+        qimg = QImage(rgb_array.data, w, h, w * ch, QImage.Format_RGB888)
+        pix  = QPixmap.fromImage(qimg)
+        self.image_label.setPixmap(
+            pix.scaled(self.image_label.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        )
 
     def _save_result(self):
         if not self.selected_patient:
             QMessageBox.warning(self, "No Patient", "Please select a patient first.")
             return
-        patient = self.selected_patient
-        folder = patient.get("folder_path", "")
+        patient   = self.selected_patient
+        folder    = patient.get("folder_path", "")
         dest_path = self.image_path
+
         if folder:
             img_folder = os.path.join(folder, "images")
             os.makedirs(img_folder, exist_ok=True)
@@ -230,16 +357,18 @@ class HistologyWindow(QWidget):
 
         notes = self.notes_edit.toPlainText().strip()
         add_analysis(
-            patient_id=patient["id"],
-            doctor_id=self.doctor["id"],
-            image_path=dest_path,
-            analysis_type="Histology",
-            result_label=self._last_label,
-            result_prob=self._last_prob,
-            notes=notes or None
+            patient_id   = patient["id"],
+            doctor_id    = self.doctor["id"],
+            image_path   = dest_path,
+            analysis_type= "Histology",
+            result_label = self._last_label,
+            result_prob  = self._last_prob,
+            notes        = notes or None,
         )
         QMessageBox.information(self, "Saved", "Analysis saved to patient record.")
         self.save_btn.setEnabled(False)
+
+    # ── Styles ────────────────────────────────────────────────────────────────
 
     def _apply_styles(self):
         self.setStyleSheet("""
@@ -262,18 +391,20 @@ class HistologyWindow(QWidget):
                              text-transform: uppercase; letter-spacing: 0.5px; }
             #patientDisplay { font-size: 13px; color: #1A2B45; }
             #resultLabel { font-size: 22px; font-weight: 700; color: #1A2B45; padding: 8px; }
-            #resultLabel[pathologique="true"] { color: #C0392B; }
+            #resultLabel[pathologique="true"]  { color: #C0392B; }
             #resultLabel[pathologique="false"] { color: #1E8449; }
-            #probLabel { font-size: 13px; color: #5D6D7E; }
+            #confLabel   { font-size: 12px; color: #5D6D7E; padding-bottom: 4px; }
+            #diceLabel   { font-size: 15px; font-weight: 700; padding: 4px 0; }
+            #qualityLabel { font-size: 12px; color: #5D6D7E; }
             #notesEdit { border: 1px solid #D5D8DC; border-radius: 6px;
                          font-size: 13px; padding: 6px; }
             #primaryBtn { background: #2E86C1; color: white; border: none;
                           border-radius: 8px; font-size: 13px; font-weight: 600; padding: 0 16px; }
-            #primaryBtn:hover { background: #1A5276; }
+            #primaryBtn:hover    { background: #1A5276; }
             #primaryBtn:disabled { background: #AED6F1; }
             #analyzeBtn { background: #1E8449; color: white; border: none;
                           border-radius: 8px; font-size: 13px; font-weight: 600; padding: 0 16px; }
-            #analyzeBtn:hover { background: #196F3D; }
+            #analyzeBtn:hover    { background: #196F3D; }
             #analyzeBtn:disabled { background: #A9DFBF; }
             #secondaryBtn { background: #ECF0F1; color: #2C3E50; border: 1px solid #D5D8DC;
                             border-radius: 7px; font-size: 13px; }
