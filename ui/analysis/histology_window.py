@@ -38,12 +38,13 @@ class PredictWorker(QThread):
                 gland_model_path      = GLAND_MODEL_PATH,
             )
             r = predictor.predict(self.image_path)
+            self._gland_mask = r.get('gland_mask')   # store for parent to retrieve
             self.finished.emit(
                 r['label'],
                 float(r['probability']),
                 r['confidence_tier'],
                 r['segmented'],
-                r['overlay'],                          # ndarray or None
+                r['overlay'],
                 float(r['gland_dice'])  if r['gland_dice']    is not None else -1.0,
                 r['gland_quality']      if r['gland_quality']  is not None else "",
             )
@@ -63,6 +64,7 @@ class HistologyWindow(QWidget):
         self._worker          = None
         self._last_label      = None
         self._last_prob       = None
+        self._gland_mask      = None   # (256,256) float32 — stored after segmentation
         self._build_ui()
         self._apply_styles()
 
@@ -198,6 +200,14 @@ class HistologyWindow(QWidget):
         self.toggle_btn.clicked.connect(self._toggle_overlay)
         gfl.addWidget(self.toggle_btn)
 
+        # Review mask button
+        self.review_mask_btn = QPushButton("✏️  Review / Edit Mask")
+        self.review_mask_btn.setObjectName("reviewMaskBtn")
+        self.review_mask_btn.setFixedHeight(34)
+        self.review_mask_btn.setCursor(Qt.PointingHandCursor)
+        self.review_mask_btn.clicked.connect(self._open_mask_review)
+        gfl.addWidget(self.review_mask_btn)
+
         self.gland_frame.hide()
         rl.addWidget(self.gland_frame)
 
@@ -290,6 +300,7 @@ class HistologyWindow(QWidget):
 
         # ── Gland segmentation results ────────────────────────────────────────
         self._overlay_array   = overlay_rgb   # ndarray (H,W,3) or None
+        self._gland_mask      = getattr(self._worker, '_gland_mask', None)
         self._showing_overlay = False
 
         if segmented and overlay_rgb is not None:
@@ -313,6 +324,28 @@ class HistologyWindow(QWidget):
         self.conf_label.hide()
         self.analyze_btn.setEnabled(True)
         QMessageBox.critical(self, "Analysis Error", msg)
+
+    def _open_mask_review(self):
+        from ui.analysis.mask_review_dialog import MaskReviewDialog
+
+        if self.image_path is None:
+            return
+
+        orig = cv2.cvtColor(cv2.imread(self.image_path), cv2.COLOR_BGR2RGB)
+
+        gland_mask = self._gland_mask
+        if gland_mask is None and self._overlay_array is not None:
+            # Fallback: derive approximate mask from orange regions in the overlay
+            diff = self._overlay_array.astype(np.int16) - orig.astype(np.int16)
+            orange_channel = diff[:, :, 0] - diff[:, :, 2]
+            gland_mask = np.clip(orange_channel, 0, 255).astype(np.float32) / 255.0
+
+        if gland_mask is None:
+            QMessageBox.information(self, "No Mask", "No segmentation mask is available yet.")
+            return
+
+        dlg = MaskReviewDialog(self.image_path, orig, gland_mask, parent=self)
+        dlg.exec()
 
     def _toggle_overlay(self):
         """Switch the left image panel between the original and the gland overlay."""
@@ -409,4 +442,7 @@ class HistologyWindow(QWidget):
             #secondaryBtn { background: #ECF0F1; color: #2C3E50; border: 1px solid #D5D8DC;
                             border-radius: 7px; font-size: 13px; }
             #secondaryBtn:hover { background: #D5D8DC; }
+            #reviewMaskBtn { background: #FEF9E7; color: #B7950B; border: 1px solid #F9E79F;
+                             border-radius: 7px; font-size: 13px; font-weight: 600; }
+            #reviewMaskBtn:hover { background: #F39C12; color: white; border-color: #F39C12; }
         """)

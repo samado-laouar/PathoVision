@@ -50,8 +50,8 @@ GLAND_SIZE = 256   # Stage 2 — GlandNet  (/255.0, [0,1])
 
 # Confidence thresholds
 CONF_HIGH   = 0.75  # >= 0.75 → high confidence   → segment
-CONF_MEDIUM = 0.50  # >= 0.50 → medium confidence → segment
-              #  < 0.50 → low confidence         → skip
+CONF_MEDIUM = 0.3   # >= 0.30 → medium confidence → segment
+              #  < 0.30 → low confidence         → skip
 
 # Overlay — orange for gland boundaries
 GLAND_COLOR = (255, 140, 0)
