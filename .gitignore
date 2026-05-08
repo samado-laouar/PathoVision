@@ -12,3 +12,12 @@ AUTRE IMAGE/
 best_unet.keras
 notebook.ipynb
 unet_segmentation.ipynb
+attention_unet_gland_segmentation_2.ipynb
+best_resnet50.keras
+best_resnet50_128.keras
+logs/
+matrice_128.png
+notebook_final.ipynb
+notebook_updated.ipynb
+results/
+checkpoints/

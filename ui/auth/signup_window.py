@@ -3,39 +3,50 @@ from PySide6.QtWidgets import (
     QPushButton, QFrame, QMessageBox, QComboBox, QSpacerItem, QSizePolicy
 )
 from PySide6.QtCore import Qt, Signal
-from PySide6.QtGui import QFont
+from PySide6.QtGui import QFont, QPixmap
+
 from db.doctor_dao import create_doctor
+from ui._style import AUTH_QSS, C
 
 
 class SignupWindow(QWidget):
     signup_successful = Signal()
-    go_login = Signal()
+    go_login          = Signal()
 
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("PathoVision — Create Account")
-        self.setMinimumSize(900, 640)
+        self.setWindowTitle("ColxPath — Create Account")
+        self.setMinimumSize(920, 660)
         self._build_ui()
-        self._apply_styles()
+        self.setStyleSheet(AUTH_QSS)
+
+    # ── UI ─────────────────────────────────────────────────────────────────────
 
     def _build_ui(self):
         root = QHBoxLayout(self)
         root.setContentsMargins(0, 0, 0, 0)
         root.setSpacing(0)
 
-        # ── Left brand panel ────────────────────────────────────────
+        # ── Left brand panel ──────────────────────────────────────────────────
         left = QFrame()
         left.setObjectName("brandPanel")
-        left.setFixedWidth(420)
+        left.setFixedWidth(400)
         ll = QVBoxLayout(left)
         ll.setAlignment(Qt.AlignCenter)
-        ll.setSpacing(14)
+        ll.setSpacing(0)
+        ll.setContentsMargins(48, 0, 48, 0)
 
-        logo = QLabel("🔬")
-        logo.setAlignment(Qt.AlignCenter)
-        logo.setFont(QFont("Segoe UI", 52))
+        logo_lbl = QLabel()
+        logo_lbl.setAlignment(Qt.AlignCenter)
+        pix = QPixmap("assets/logo.png")
+        if not pix.isNull():
+            logo_lbl.setPixmap(pix.scaled(80, 80, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        else:
+            logo_lbl.setText("C")
+            logo_lbl.setFont(QFont("DM Sans", 52, QFont.Bold))
+            logo_lbl.setStyleSheet("color: white;")
 
-        brand = QLabel("PathoVision")
+        brand = QLabel("ColxPath")
         brand.setObjectName("brandTitle")
         brand.setAlignment(Qt.AlignCenter)
 
@@ -43,25 +54,39 @@ class SignupWindow(QWidget):
         tagline.setObjectName("brandTagline")
         tagline.setAlignment(Qt.AlignCenter)
 
+        divider = QFrame()
+        divider.setFrameShape(QFrame.HLine)
+        divider.setStyleSheet("color: rgba(255,255,255,0.10); margin: 24px 0;")
+
+        badge = QLabel("SECURE  ·  PRIVATE  ·  CLINICAL-GRADE")
+        badge.setAlignment(Qt.AlignCenter)
+        badge.setStyleSheet(
+            "font-size: 10px; font-weight: 700; letter-spacing: 2px;"
+            "color: rgba(203,213,225,0.35);"
+        )
+
         ll.addStretch()
-        ll.addWidget(logo)
+        ll.addWidget(logo_lbl)
+        ll.addSpacing(20)
         ll.addWidget(brand)
+        ll.addSpacing(10)
         ll.addWidget(tagline)
+        ll.addWidget(divider)
+        ll.addWidget(badge)
         ll.addStretch()
 
-        # ── Right form panel ────────────────────────────────────────
+        # ── Right form panel ──────────────────────────────────────────────────
         right = QFrame()
         right.setObjectName("formPanel")
         rl = QVBoxLayout(right)
         rl.setAlignment(Qt.AlignCenter)
-        rl.setContentsMargins(60, 40, 60, 40)
+        rl.setContentsMargins(64, 40, 64, 40)
         rl.setSpacing(0)
 
         title = QLabel("Create Account")
         title.setObjectName("formTitle")
         subtitle = QLabel("Fill in your details to get started")
         subtitle.setObjectName("formSubtitle")
-
         rl.addWidget(title)
         rl.addWidget(subtitle)
         rl.addSpacerItem(QSpacerItem(0, 24, QSizePolicy.Minimum, QSizePolicy.Fixed))
@@ -70,11 +95,13 @@ class SignupWindow(QWidget):
         row1 = QHBoxLayout()
         row1.setSpacing(16)
         fn_col = QVBoxLayout()
+        fn_col.setSpacing(5)
         fn_col.addWidget(self._lbl("Full Name"))
         self.fullname_input = self._edit("Dr. Jane Smith")
         fn_col.addWidget(self.fullname_input)
 
         job_col = QVBoxLayout()
+        job_col.setSpacing(5)
         job_col.addWidget(self._lbl("Job / Specialty"))
         self.job_combo = QComboBox()
         self.job_combo.setObjectName("formInput")
@@ -90,7 +117,6 @@ class SignupWindow(QWidget):
         rl.addLayout(row1)
         rl.addSpacerItem(QSpacerItem(0, 14, QSizePolicy.Minimum, QSizePolicy.Fixed))
 
-        # Username
         rl.addWidget(self._lbl("Username"))
         self.username_input = self._edit("Choose a username")
         rl.addWidget(self.username_input)
@@ -100,11 +126,13 @@ class SignupWindow(QWidget):
         row2 = QHBoxLayout()
         row2.setSpacing(16)
         pw_col = QVBoxLayout()
+        pw_col.setSpacing(5)
         pw_col.addWidget(self._lbl("Password"))
         self.pw_input = self._edit("Create a password", password=True)
         pw_col.addWidget(self.pw_input)
 
         cpw_col = QVBoxLayout()
+        cpw_col.setSpacing(5)
         cpw_col.addWidget(self._lbl("Confirm Password"))
         self.cpw_input = self._edit("Repeat your password", password=True)
         cpw_col.addWidget(self.cpw_input)
@@ -112,12 +140,11 @@ class SignupWindow(QWidget):
         row2.addLayout(pw_col)
         row2.addLayout(cpw_col)
         rl.addLayout(row2)
-        rl.addSpacerItem(QSpacerItem(0, 24, QSizePolicy.Minimum, QSizePolicy.Fixed))
+        rl.addSpacerItem(QSpacerItem(0, 26, QSizePolicy.Minimum, QSizePolicy.Fixed))
 
-        # Submit
         self.submit_btn = QPushButton("Create Account")
         self.submit_btn.setObjectName("primaryBtn")
-        self.submit_btn.setFixedHeight(48)
+        self.submit_btn.setFixedHeight(46)
         self.submit_btn.setCursor(Qt.PointingHandCursor)
         self.submit_btn.clicked.connect(self._handle_signup)
         rl.addWidget(self.submit_btn)
@@ -142,6 +169,7 @@ class SignupWindow(QWidget):
     def _lbl(self, text):
         l = QLabel(text)
         l.setObjectName("fieldLabel")
+        l.setContentsMargins(0, 0, 0, 5)
         return l
 
     def _edit(self, placeholder, password=False):
@@ -172,7 +200,7 @@ class SignupWindow(QWidget):
 
         ok, msg = create_doctor(username, password, full_name, job)
         if ok:
-            QMessageBox.information(self, "Success", "Account created! You can now log in.")
+            QMessageBox.information(self, "Success", "Account created. You can now log in.")
             self.signup_successful.emit()
             self.go_login.emit()
         else:
@@ -180,45 +208,3 @@ class SignupWindow(QWidget):
                 QMessageBox.critical(self, "Username Taken", "That username is already in use.")
             else:
                 QMessageBox.critical(self, "Error", msg)
-
-    def _apply_styles(self):
-        self.setStyleSheet("""
-            QWidget { background: #F8FAFB; font-family: 'Segoe UI'; }
-
-            #brandPanel {
-                background: qlineargradient(x1:0,y1:0,x2:1,y2:1,
-                    stop:0 #1A5276, stop:1 #2E86C1);
-            }
-            #brandTitle {
-                color: white; font-size: 32px; font-weight: 700; letter-spacing: 1px;
-            }
-            #brandTagline { color: rgba(255,255,255,0.75); font-size: 14px; }
-
-            #formPanel { background: #FFFFFF; }
-            #formTitle { font-size: 28px; font-weight: 700; color: #1A2B45; }
-            #formSubtitle { font-size: 14px; color: #7F8C8D; margin-top: 4px; }
-            #fieldLabel { font-size: 13px; font-weight: 600; color: #2C3E50; margin-bottom: 6px; }
-
-            #formInput {
-                border: 1.5px solid #D5D8DC; border-radius: 8px;
-                padding: 0 14px; font-size: 14px; color: #1A2B45; background: #FDFEFE;
-            }
-            #formInput:focus { border-color: #2E86C1; background: #EBF5FB; }
-            QComboBox#formInput { padding-left: 10px; }
-            QComboBox#formInput::drop-down { border: none; width: 24px; }
-
-            #primaryBtn {
-                background: #2E86C1; color: white; border: none;
-                border-radius: 8px; font-size: 15px; font-weight: 600;
-            }
-            #primaryBtn:hover { background: #1A5276; }
-            #primaryBtn:pressed { background: #154360; }
-
-            #mutedText { color: #7F8C8D; font-size: 13px; }
-            #linkBtn {
-                background: none; border: none; color: #2E86C1;
-                font-size: 13px; font-weight: 600; padding: 0 4px;
-                text-decoration: underline;
-            }
-            #linkBtn:hover { color: #1A5276; }
-        """)

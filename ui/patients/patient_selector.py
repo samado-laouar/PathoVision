@@ -4,34 +4,34 @@ from PySide6.QtWidgets import (
     QFrame, QMessageBox, QAbstractItemView
 )
 from PySide6.QtCore import Qt, Signal
-from PySide6.QtGui import QFont
+
 from db.patient_dao import get_all_patients, search_patients
 from ui.patients.patient_form import PatientForm
+from ui._style import DIALOG_QSS, C
 
 
 class PatientSelector(QDialog):
-    """Modal dialog — pick an existing patient or create a new one."""
     patient_selected = Signal(dict)
 
     def __init__(self, doctor: dict, parent=None):
         super().__init__(parent)
         self.doctor = doctor
         self.setWindowTitle("Select Patient")
-        self.setMinimumSize(760, 520)
+        self.setMinimumSize(780, 540)
         self._build_ui()
-        self._apply_styles()
+        self.setStyleSheet(DIALOG_QSS + _PS_EXTRA)
         self._load_patients()
 
     def _build_ui(self):
         layout = QVBoxLayout(self)
         layout.setContentsMargins(24, 24, 24, 24)
-        layout.setSpacing(16)
+        layout.setSpacing(14)
 
         # Header
         header = QHBoxLayout()
         title = QLabel("Select a Patient")
         title.setObjectName("dialogTitle")
-        new_btn = QPushButton("＋  New Patient")
+        new_btn = QPushButton("New Patient")
         new_btn.setObjectName("primaryBtn")
         new_btn.setFixedHeight(38)
         new_btn.setCursor(Qt.PointingHandCursor)
@@ -41,9 +41,9 @@ class PatientSelector(QDialog):
         header.addWidget(new_btn)
         layout.addLayout(header)
 
-        # Search bar
+        # Search
         self.search_input = QLineEdit()
-        self.search_input.setPlaceholderText("🔍  Search by name, tissue or marker...")
+        self.search_input.setPlaceholderText("Search by name, tissue or marker...")
         self.search_input.setObjectName("searchInput")
         self.search_input.setFixedHeight(40)
         self.search_input.textChanged.connect(self._on_search)
@@ -62,6 +62,7 @@ class PatientSelector(QDialog):
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.table.setAlternatingRowColors(True)
         self.table.verticalHeader().setVisible(False)
+        self.table.setShowGrid(False)
         self.table.doubleClicked.connect(self._confirm_selection)
         layout.addWidget(self.table)
 
@@ -77,6 +78,7 @@ class PatientSelector(QDialog):
         select_btn.setFixedHeight(38)
         select_btn.clicked.connect(self._confirm_selection)
         btn_row.addWidget(cancel_btn)
+        btn_row.addSpacing(8)
         btn_row.addWidget(select_btn)
         layout.addLayout(btn_row)
 
@@ -108,8 +110,7 @@ class PatientSelector(QDialog):
         if row < 0:
             QMessageBox.information(self, "No Selection", "Please select a patient first.")
             return
-        patient = self._patients[row]
-        self.patient_selected.emit(patient)
+        self.patient_selected.emit(self._patients[row])
         self.accept()
 
     def _open_new_patient(self):
@@ -117,38 +118,8 @@ class PatientSelector(QDialog):
         if form.exec():
             self._load_patients()
 
-    def _apply_styles(self):
-        self.setStyleSheet("""
-            QDialog { background: #F8FAFB; font-family: 'Segoe UI'; }
-            #dialogTitle { font-size: 20px; font-weight: 700; color: #1A2B45; }
 
-            #searchInput {
-                border: 1.5px solid #D5D8DC; border-radius: 8px;
-                padding: 0 14px; font-size: 14px; background: #FFF;
-            }
-            #searchInput:focus { border-color: #2E86C1; }
-
-            #patientTable {
-                border: 1px solid #E5E7EB; border-radius: 8px;
-                gridline-color: #F0F0F0; font-size: 13px;
-            }
-            QHeaderView::section {
-                background: #EBF5FB; color: #1A5276;
-                font-weight: 600; font-size: 13px;
-                padding: 8px; border: none;
-                border-bottom: 2px solid #AED6F1;
-            }
-            QTableWidget::item:selected { background: #D6EAF8; color: #1A2B45; }
-            QTableWidget { alternate-background-color: #F7FBFE; }
-
-            #primaryBtn {
-                background: #2E86C1; color: white; border: none;
-                border-radius: 7px; font-size: 13px; font-weight: 600; padding: 0 18px;
-            }
-            #primaryBtn:hover { background: #1A5276; }
-            #secondaryBtn {
-                background: #ECF0F1; color: #2C3E50; border: 1px solid #D5D8DC;
-                border-radius: 7px; font-size: 13px; padding: 0 18px;
-            }
-            #secondaryBtn:hover { background: #D5D8DC; }
-        """)
+# ── Extra styles ───────────────────────────────────────────────────────────────
+_PS_EXTRA = f"""
+    QDialog {{ background: {C['surface']}; }}
+"""

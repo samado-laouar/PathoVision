@@ -271,3 +271,90 @@
 2026-05-05 22:48:33,175 - WARNING - Gland model not found — segmentation will be skipped.
 2026-05-05 22:48:34,347 - INFO - [colonca2.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
 2026-05-05 22:48:34,347 - INFO -   Stage 2 skipped — gland model unavailable
+2026-05-05 23:40:01,815 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-05 23:40:03,404 - INFO - [testA_5.bmp] Non Pathologique prob=0.0000 tier=low
+2026-05-05 23:40:12,595 - INFO - [testA_17.bmp] Pathologique prob=0.9973 tier=high
+2026-05-06 00:12:33,820 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-06 00:12:34,363 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50.keras
+2026-05-06 00:12:34,363 - WARNING - Gland model not found — segmentation will be skipped.
+2026-05-06 00:12:35,669 - INFO - [testA_32.bmp] Stage 1 \u2192 Pathologique | prob=0.9999 | tier=high
+2026-05-06 00:12:35,669 - INFO -   Stage 2 skipped — gland model unavailable
+2026-05-06 00:17:35,185 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-06 00:17:35,641 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50.keras
+2026-05-06 00:17:36,322 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_model_tf.keras
+2026-05-06 00:17:37,462 - INFO - [testA_32.bmp] Stage 1 \u2192 Pathologique | prob=0.9999 | tier=high
+2026-05-06 00:17:37,997 - INFO -   Gland coverage=27.3%  dice_proxy=0.881
+2026-05-06 00:17:38,014 - INFO -   Stage 2 \u2192 dice_proxy=0.8813 | Good segmentation — gland boundaries clearly defined
+2026-05-06 00:32:21,984 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-06 00:32:22,437 - INFO - Classifier loaded   : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\analysis\..\..\models\best_resnet50.keras
+2026-05-06 00:32:23,119 - INFO - Gland model loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\analysis\..\..\models\best_model_tf.keras
+2026-05-06 00:32:24,373 - INFO - [testA_32.bmp] Pathologique | prob=0.9999 | tier=high
+2026-05-06 00:32:24,948 - INFO -   Morphometrics: 11 glands | flags: ['\u26a0 Low mean circularity (0.36) — irregular / fragmented glands', '\u26a0 Low mean solidity (0.75) — possible cribriform pattern', '\U0001f534 Tumor budding detected (5 bud(s)) — metastasis risk', '\u26a0 High gland size heterogeneity (std=15132)']
+2026-05-06 00:34:43,445 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-06 00:34:43,891 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50.keras
+2026-05-06 00:34:44,559 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_model_tf.keras
+2026-05-06 00:34:45,672 - INFO - [testA_32.bmp] Stage 1 \u2192 Pathologique | prob=0.9999 | tier=high
+2026-05-06 00:34:46,197 - INFO -   Gland coverage=27.3%  dice_proxy=0.881
+2026-05-06 00:34:46,204 - INFO -   Stage 2 \u2192 dice_proxy=0.8813 | Good segmentation — gland boundaries clearly defined
+2026-05-06 01:12:03,499 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-06 01:12:04,061 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50.keras
+2026-05-06 01:12:04,809 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_model_tf.keras
+2026-05-06 01:12:05,962 - INFO - [testA_32.bmp] Stage 1 \u2192 Pathologique | prob=0.9999 | tier=high
+2026-05-06 01:12:06,533 - INFO -   Gland coverage=27.3%  dice_proxy=0.881
+2026-05-06 01:12:06,539 - INFO -   Stage 2 \u2192 dice_proxy=0.8813 | Good segmentation — gland boundaries clearly defined
+2026-05-06 01:13:27,504 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50.keras
+2026-05-06 01:13:28,067 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_model_tf.keras
+2026-05-06 01:13:29,400 - INFO - [testA_32.bmp] Stage 1 \u2192 Pathologique | prob=0.9999 | tier=high
+2026-05-06 01:13:29,967 - INFO -   Gland coverage=27.3%  dice_proxy=0.881
+2026-05-06 01:13:29,975 - INFO -   Stage 2 \u2192 dice_proxy=0.8813 | Good segmentation — gland boundaries clearly defined
+2026-05-06 01:18:11,566 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-06 01:18:12,067 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50.keras
+2026-05-06 01:18:12,875 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_model_tf.keras
+2026-05-06 01:18:14,092 - INFO - [testA_34.bmp] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-06 01:18:14,655 - INFO -   Gland coverage=45.2%  dice_proxy=0.843
+2026-05-06 01:18:14,663 - INFO -   Stage 2 \u2192 dice_proxy=0.8432 | Good segmentation — gland boundaries clearly defined
+2026-05-06 01:20:36,784 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50.keras
+2026-05-06 01:20:37,305 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_model_tf.keras
+2026-05-06 01:20:38,662 - INFO - [testB_4.bmp] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-06 01:20:39,265 - INFO -   Gland coverage=34.6%  dice_proxy=0.995
+2026-05-06 01:20:39,271 - INFO -   Stage 2 \u2192 dice_proxy=0.9946 | Good segmentation — gland boundaries clearly defined
+2026-05-06 10:29:59,113 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-06 10:29:59,739 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50.keras
+2026-05-06 10:30:00,530 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_model_tf.keras
+2026-05-06 10:30:01,889 - INFO - [GT2000000-1-400-004.png] Stage 1 \u2192 Non Pathologique | prob=0.0000 | tier=low
+2026-05-06 10:30:01,890 - INFO -   Stage 2 skipped — low confidence
+2026-05-06 10:30:14,350 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50.keras
+2026-05-06 10:30:14,824 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_model_tf.keras
+2026-05-06 10:30:15,952 - INFO - [GT2001837-1-400-004.png] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-06 10:30:16,692 - INFO -   Gland coverage=64.6%  dice_proxy=0.544
+2026-05-06 10:30:16,705 - INFO -   Stage 2 \u2192 dice_proxy=0.5443 | Acceptable segmentation — minor boundary ambiguity
+2026-05-07 14:33:54,066 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-07 14:33:54,663 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50.keras
+2026-05-07 14:33:55,428 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_model_tf.keras
+2026-05-07 14:33:56,588 - INFO - [testA_52.bmp] Stage 1 \u2192 Non Pathologique | prob=0.0000 | tier=low
+2026-05-07 14:33:56,589 - INFO -   Stage 2 skipped — low confidence
+2026-05-07 14:34:06,561 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50.keras
+2026-05-07 14:34:07,073 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_model_tf.keras
+2026-05-07 14:34:08,224 - INFO - [testA_7.bmp] Stage 1 \u2192 Non Pathologique | prob=0.0000 | tier=low
+2026-05-07 14:34:08,224 - INFO -   Stage 2 skipped — low confidence
+2026-05-07 14:34:17,567 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50.keras
+2026-05-07 14:34:18,075 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_model_tf.keras
+2026-05-07 14:34:19,169 - INFO - [testA_17.bmp] Stage 1 \u2192 Pathologique | prob=0.9973 | tier=high
+2026-05-07 14:34:19,723 - INFO -   Gland coverage=48.2%  dice_proxy=0.796
+2026-05-07 14:34:19,744 - INFO -   Stage 2 \u2192 dice_proxy=0.7964 | Good segmentation — gland boundaries clearly defined
+2026-05-07 23:43:22,646 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50.keras
+2026-05-07 23:43:23,160 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_model_tf.keras
+2026-05-07 23:43:24,336 - WARNING - 5 out of the last 5 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000023FF6E29BD0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-05-07 23:43:24,357 - INFO - [testA_9.bmp] Stage 1 \u2192 Non Pathologique | prob=0.0000 | tier=low
+2026-05-07 23:43:24,357 - INFO -   Stage 2 skipped — low confidence
+2026-05-07 23:43:35,225 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50.keras
+2026-05-07 23:43:35,725 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_model_tf.keras
+2026-05-07 23:43:36,827 - WARNING - 6 out of the last 6 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000023F85037490> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-05-07 23:43:36,847 - INFO - [testA_34.bmp] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-07 23:43:37,396 - INFO -   Gland coverage=45.2%  dice_proxy=0.843
+2026-05-07 23:43:37,406 - INFO -   Stage 2 \u2192 dice_proxy=0.8432 | Good segmentation — gland boundaries clearly defined
+2026-05-07 23:45:10,817 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50.keras
+2026-05-07 23:45:11,351 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_model_tf.keras
+2026-05-07 23:45:12,434 - INFO - [testA_32.bmp] Stage 1 \u2192 Pathologique | prob=0.9999 | tier=high
+2026-05-07 23:45:12,976 - INFO -   Gland coverage=27.3%  dice_proxy=0.881
+2026-05-07 23:45:12,982 - INFO -   Stage 2 \u2192 dice_proxy=0.8813 | Good segmentation — gland boundaries clearly defined
