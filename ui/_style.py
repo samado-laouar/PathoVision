@@ -11,10 +11,10 @@ C = {
     "surface":    "#F4F7FA",   # app background
     "card":       "#FFFFFF",   # card / panel
     "border":     "#DDE3EA",   # default border
-    "border_focus": "#2563EB", # input focus ring
+    "border_focus": "#8a40d4", # input focus ring
 
-    "primary":    "#2563EB",   # brand blue
-    "primary_dk": "#1749C0",   # hover
+    "primary":    "#791ad8",   # brand blue
+    "primary_dk": "#61249e",   # hover
     "primary_lt": "#EEF3FD",   # tinted bg
 
     "success":    "#059669",
@@ -24,7 +24,7 @@ C = {
     "warning":    "#D97706",
     "warning_lt": "#FEF3C7",
 
-    "nav_bg":     "#791ad8",   # dark sidebar / navbar
+    "nav_bg":     "#6626a6",   # dark sidebar / navbar
     "nav_text":   "#CBD5E1",
     "nav_active": "#FFFFFF",
 }
@@ -174,7 +174,7 @@ BASE_QSS = f"""
         letter-spacing: 0.1px;
     }}
     #primaryBtn:hover {{ background: {C['primary_dk']}; }}
-    #primaryBtn:pressed {{ background: #133A9E; }}
+    #primaryBtn:pressed {{ background: #521e85; }}
     #primaryBtn:disabled {{ background: #93B4F0; color: rgba(255,255,255,0.6); }}
 
     #analyzeBtn {{

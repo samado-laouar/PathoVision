@@ -1,35 +1,258 @@
 import os
 import sys
-
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-if sys.stdout is None:
-    sys.stdout = open(os.devnull, 'w')
-if sys.stderr is None:
-    sys.stderr = open(os.devnull, 'w')
-
 import numpy as np
 import cv2
 import logging
 from tensorflow.keras.models import load_model
 import tensorflow as tf
+from tensorflow.keras.applications.resnet50 import preprocess_input
 
-from core.morphometrics import analyze as morpho_analyze, MorphometricReport
+# ── Reinhard Normalizer (from your notebook) ───────────────────────────────
+class ReinhardNormalizer:
+    def __init__(self):
+        self.target_means = None
+        self.target_stds = None
 
-logging.basicConfig(
-    filename='app.log',
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
+    def _lab_split(self, I):
+        I_lab = cv2.cvtColor(I, cv2.COLOR_RGB2LAB).astype(np.float32)
+        I1, I2, I3 = cv2.split(I_lab)
+        I1 = I1 / 2.55
+        I2 = I2 - 128.0
+        I3 = I3 - 128.0
+        return I1, I2, I3
 
-# ── Custom objects — names must match the segmentation notebook exactly ──────
-#
-# Notebook (attention_unet_gland_segmentation_2.ipynb) defines:
-#   dice_coefficient(y_true, y_pred)   → metric
-#   dice_loss(y_true, y_pred)          → helper
-#   hybrid_loss(y_true, y_pred)        → compiled loss  (BCE_WEIGHT*BCE + DICE_WEIGHT*Dice)
-#   iou_metric(y_true, y_pred)         → metric
-#
-# These names are serialised into the .keras file and MUST be registered here.
+    def _merge_back(self, I1, I2, I3):
+        I1 = I1 * 2.55
+        I2 = I2 + 128.0
+        I3 = I3 + 128.0
+        merged = np.clip(cv2.merge((I1, I2, I3)), 0, 255).astype(np.uint8)
+        return cv2.cvtColor(merged, cv2.COLOR_LAB2RGB)
+
+    def _get_mean_std(self, I):
+        I1, I2, I3 = self._lab_split(I)
+        m1, s1 = cv2.meanStdDev(I1)
+        m2, s2 = cv2.meanStdDev(I2)
+        m3, s3 = cv2.meanStdDev(I3)
+        return (m1[0][0], m2[0][0], m3[0][0]), (s1[0][0], s2[0][0], s3[0][0])
+
+    def _standardize_brightness(self, I):
+        p = np.percentile(I, 95)
+        return np.clip(I * 255.0 / p, 0, 255).astype(np.uint8)
+
+    def fit(self, target):
+        target = self._standardize_brightness(target)
+        self.target_means, self.target_stds = self._get_mean_std(target)
+        logging.info("✅ Reinhard Normalizer fitted successfully.")
+
+    def transform(self, I):
+        I = self._standardize_brightness(I)
+        I1, I2, I3 = self._lab_split(I)
+        means, stds = self._get_mean_std(I)
+
+        norm1 = ((I1 - means[0]) * (self.target_stds[0] / stds[0])) + self.target_means[0]
+        norm2 = ((I2 - means[1]) * (self.target_stds[1] / stds[1])) + self.target_means[1]
+        norm3 = ((I3 - means[2]) * (self.target_stds[2] / stds[2])) + self.target_means[2]
+
+        return self._merge_back(norm1, norm2, norm3)
+
+
+# ── Constants ─────────────────────────────────────────────────────────────
+CLF_SIZE   = 256
+GLAND_SIZE = 256
+CLF_THRESHOLD = 0.3
+SEG_THRESHOLD = 0.3
+
+CONF_HIGH   = 0.75
+CONF_MEDIUM = 0.30
+
+GLAND_COLOR = (255, 140, 0)
+OVERLAY_ALPHA = 0.40
+
+DICE_GOOD = 0.75
+DICE_OK   = 0.50
+
+
+# ── Default Reinhard Normalizer ───────────────────────────────────────────
+def _build_default_reinhard_normalizer() -> ReinhardNormalizer:
+    REFERENCE_IMAGE_PATH = "./training_data/colon_n/colonn159.jpeg"
+    print(f"Loading reference image for Reinhard normalisation: {REFERENCE_IMAGE_PATH}")
+    
+    norm = ReinhardNormalizer()
+    if os.path.exists(REFERENCE_IMAGE_PATH):
+        ref_img = cv2.imread(REFERENCE_IMAGE_PATH)
+        ref_img = cv2.cvtColor(ref_img, cv2.COLOR_BGR2RGB)
+        try:
+            norm.fit(ref_img)
+            return norm
+        except Exception as e:
+            logging.warning(f"Reinhard fit failed: {e}")
+    else:
+        logging.warning(f"Reference image not found: {REFERENCE_IMAGE_PATH}")
+    
+    # Fallback: create dummy normalizer
+    return norm
+
+
+_DEFAULT_REINHARD_NORMALIZER = _build_default_reinhard_normalizer()
+
+
+# ── Predictor Class ───────────────────────────────────────────────────────
+class Predictor:
+    def __init__(
+        self,
+        classifier_model_path: str,
+        gland_model_path: str = None,
+        stain_normalizer: ReinhardNormalizer = None,
+    ):
+        self.clf_model = load_model(classifier_model_path)
+        self.stain_normalizer = stain_normalizer or _DEFAULT_REINHARD_NORMALIZER
+        logging.info(f"Classifier loaded: {classifier_model_path}")
+
+        self.gland_model = None
+        if gland_model_path and os.path.exists(gland_model_path):
+            self.gland_model = load_model(
+                gland_model_path,
+                custom_objects=CUSTOM_OBJECTS,  # keep your existing custom objects
+            )
+            logging.info(f"Gland model loaded: {gland_model_path}")
+        else:
+            logging.warning("Gland model not found — segmentation will be skipped.")
+
+    # ── Image Loading ─────────────────────────────────────────────────────
+    def _read_image(self, image_path: str) -> np.ndarray:
+        img = cv2.imread(image_path, cv2.IMREAD_COLOR)
+        if img is None:
+            raise FileNotFoundError(f"Cannot read image: {image_path}")
+        if img.dtype != np.uint8:
+            img = cv2.normalize(img, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+        return cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+    # ── Preprocessing for Classifier (NEW - Reinhard) ─────────────────────
+    def _preprocess_for_classifier(self, img_rgb: np.ndarray) -> np.ndarray:
+        img = img_rgb.copy()
+        
+        # 1. Resize
+        img = cv2.resize(img, (CLF_SIZE, CLF_SIZE), interpolation=cv2.INTER_AREA)
+        
+        # 2. Reinhard Stain Normalization
+        try:
+            img = self.stain_normalizer.transform(img)
+        except Exception as e:
+            logging.warning(f"Reinhard normalization failed, using raw image: {e}")
+
+        # 3. ResNet50 preprocessing (ImageNet stats)
+        img = preprocess_input(img.astype(np.float32))
+        
+        return np.expand_dims(img, axis=0)
+
+    # ── Rest of your methods (unchanged) ──────────────────────────────────
+    def _preprocess_for_gland(self, img_rgb: np.ndarray) -> np.ndarray:
+        img = cv2.resize(img_rgb, (GLAND_SIZE, GLAND_SIZE), interpolation=cv2.INTER_AREA)
+        return np.expand_dims(img.astype(np.float32) / 255.0, axis=0)
+
+    def _apply_overlay(self, img_rgb: np.ndarray, mask: np.ndarray) -> np.ndarray:
+        h, w = img_rgb.shape[:2]
+        mask_rs = cv2.resize(mask, (w, h), interpolation=cv2.INTER_LINEAR)
+        mask_bin = (mask_rs > SEG_THRESHOLD).astype(np.uint8)
+        colored = np.zeros_like(img_rgb)
+        colored[mask_bin == 1] = GLAND_COLOR
+        overlay = cv2.addWeighted(img_rgb.copy(), 1.0, colored, OVERLAY_ALPHA, 0)
+        contours, _ = cv2.findContours(mask_bin, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        cv2.drawContours(overlay, contours, -1, GLAND_COLOR, 2)
+        return overlay
+
+    @staticmethod
+    def _compute_dice_proxy(pred_mask: np.ndarray) -> float:
+        pred_bin = (pred_mask > SEG_THRESHOLD).astype(np.float32)
+        coverage = pred_bin.mean()
+        ideal = 0.35
+        proxy = float(1.0 - abs(coverage - ideal) / max(ideal, 1.0 - ideal))
+        return max(0.0, min(1.0, proxy))
+
+    @staticmethod
+    def _confidence_tier(prob: float) -> str:
+        if prob >= CONF_HIGH:
+            return "high"
+        elif prob >= CONF_MEDIUM:
+            return "medium"
+        return "low"
+
+    @staticmethod
+    def _qualitative_assessment(dice: float) -> str:
+        if dice >= DICE_GOOD:
+            return "Good segmentation — gland boundaries clearly defined"
+        elif dice >= DICE_OK:
+            return "Acceptable segmentation — minor boundary ambiguity"
+        return "Poor segmentation — gland boundaries unclear"
+
+    # ── Main Prediction ───────────────────────────────────────────────────
+    def predict(self, image_path: str) -> dict:
+        result = {
+            "label": None,
+            "probability": None,
+            "confidence_tier": None,
+            "segmented": False,
+            "overlay": None,
+            "gland_dice": None,
+            "gland_quality": None,
+            "gland_mask": None,
+            "morpho_report": None,
+        }
+
+        # Stage 1: Classification
+        img_rgb = self._read_image(image_path)
+        
+        prob = float(
+            self.clf_model.predict(
+                self._preprocess_for_classifier(img_rgb), verbose=0
+            )[0][0]
+        )
+        
+        label = "Pathologique" if prob >= CLF_THRESHOLD else "Non Pathologique"
+        tier = self._confidence_tier(prob)
+
+        result.update(
+            label=label,
+            probability=prob,
+            confidence_tier=tier,
+            overlay=img_rgb.copy(),
+        )
+
+        logging.info(
+            f"[{os.path.basename(image_path)}] Stage 1 → {label} | prob={prob:.4f} | tier={tier}"
+        )
+
+        # Stage 2 & 3 remain unchanged...
+        should_segment = tier in ("high", "medium") and self.gland_model is not None
+        if not should_segment:
+            return result
+
+        # ... (keep your existing gland segmentation + morphometrics code)
+        gland_input = self._preprocess_for_gland(img_rgb)
+        gland_out = self.gland_model.predict(gland_input, verbose=0)
+        gland_mask = gland_out[0, ..., 0]
+
+        dice = self._compute_dice_proxy(gland_mask)
+        quality = self._qualitative_assessment(dice)
+
+        result.update(
+            segmented=True,
+            overlay=self._apply_overlay(img_rgb, gland_mask),
+            gland_dice=dice,
+            gland_quality=quality,
+            gland_mask=gland_mask,
+        )
+
+        # Stage 3: Morphometrics
+        try:
+            from core.morphometrics import analyze as morpho_analyze
+            morpho = morpho_analyze(img_rgb, gland_mask)
+            result["morpho_report"] = morpho
+        except Exception as e:
+            logging.warning(f"Morphometrics failed: {e}")
+
+        return result
+
 
 def dice_coefficient(y_true, y_pred, smooth=1e-6):
     """Sørensen–Dice coefficient — matches notebook dice_coefficient()."""
@@ -70,335 +293,4 @@ CUSTOM_OBJECTS = {
     'iou_metric'        : iou_metric,        # metric
 }
 
-# ── Constants ─────────────────────────────────────────────────────────────────
-CLF_SIZE   = 256   # ResNet50 input          — matches classifier notebook IMG_SIZE = 256
-GLAND_SIZE = 256   # Attention U-Net input   — matches CFG['IMG_HEIGHT/WIDTH'] = 256
 
-# Classification threshold — 0.3 (sensitivity-first, matches notebook eval cell)
-CLF_THRESHOLD = 0.3
-
-# Segmentation binarisation threshold — 0.3
-SEG_THRESHOLD = 0.3
-
-# Confidence tiers (based on raw sigmoid probability)
-CONF_HIGH   = 0.75   # >= 0.75 → high   → run segmentation
-CONF_MEDIUM = 0.30   # >= 0.30 → medium → run segmentation
-             #  < 0.30 → low    → skip segmentation
-
-# Overlay colour — orange for gland boundaries
-GLAND_COLOR = (255, 140, 0)
-OVERLAY_ALPHA = 0.40
-
-# Dice proxy quality thresholds
-DICE_GOOD = 0.75
-DICE_OK   = 0.50
-
-
-# ── Macenko Stain Normaliser ──────────────────────────────────────────────────
-class MacenkoNormalizer:
-    """
-    Macenko stain normalisation for H&E histopathology images.
-    Reference: Macenko et al. (2009) — A method for normalizing histology
-    slides for quantitative analysis.
-
-    Usage
-    -----
-    normalizer = MacenkoNormalizer()
-    normalizer.fit(reference_image_uint8_rgb)
-    normalised = normalizer.transform(input_image_uint8_rgb)
-    """
-
-    def __init__(self, alpha: float = 1.0, beta: float = 0.15):
-        self.alpha   = alpha
-        self.beta    = beta
-        self.HERef   = None
-        self.maxCRef = None
-
-    @staticmethod
-    def _od(img: np.ndarray) -> np.ndarray:
-        """Convert uint8 RGB to optical density, clipping near-zero values."""
-        img = np.clip(img.astype(np.float64), 1, 255)
-        return -np.log(img / 255.0)
-
-    def _get_stain_matrix(self, img: np.ndarray) -> np.ndarray:
-        OD        = self._od(img)
-        OD_flat   = OD.reshape(-1, 3)
-        mask      = np.linalg.norm(OD_flat, axis=1) > self.beta
-        OD_tissue = OD_flat[mask]
-        if len(OD_tissue) < 10:
-            raise ValueError("Too few tissue pixels — check the input image.")
-        _, _, Vt  = np.linalg.svd(OD_tissue, full_matrices=False)
-        plane     = Vt[:2].T
-        coords    = OD_tissue @ plane
-        angle     = np.arctan2(coords[:, 1], coords[:, 0])
-        phi1      = np.percentile(angle, self.alpha)
-        phi2      = np.percentile(angle, 100 - self.alpha)
-        v1        = plane @ np.array([np.cos(phi1), np.sin(phi1)])
-        v2        = plane @ np.array([np.cos(phi2), np.sin(phi2)])
-        HE        = np.column_stack([v1, v2])
-        if HE[0, 0] < HE[0, 1]:
-            HE = HE[:, ::-1]
-        return HE / np.linalg.norm(HE, axis=0)
-
-    def fit(self, target: np.ndarray) -> "MacenkoNormalizer":
-        """Fit normaliser to a uint8 RGB reference image."""
-        self.HERef   = self._get_stain_matrix(target)
-        OD           = self._od(target)
-        C            = np.linalg.lstsq(self.HERef, OD.reshape(-1, 3).T, rcond=None)[0]
-        self.maxCRef = np.percentile(C, 99, axis=1)
-        return self
-
-    def transform(self, img: np.ndarray) -> np.ndarray:
-        """Normalise a uint8 RGB image to the reference stain appearance."""
-        if self.HERef is None:
-            raise RuntimeError("Call .fit() with a reference image first.")
-        h, w     = img.shape[:2]
-        OD       = self._od(img)
-        C        = np.linalg.lstsq(self.HERef, OD.reshape(-1, 3).T, rcond=None)[0]
-        maxC     = np.percentile(C, 99, axis=1, keepdims=True)
-        C        = C * (self.maxCRef[:, None] / np.clip(maxC, 1e-6, None))
-        OD_norm  = self.HERef @ C
-        img_norm = np.exp(-OD_norm.T) * 255.0
-        img_norm = np.clip(img_norm, 0, 255).astype(np.uint8)
-        return img_norm.reshape(h, w, 3)
-
-
-# ── Build a default synthetic reference (replaced by a real tile ideally) ────
-def _build_default_normalizer() -> MacenkoNormalizer:
-    """
-    Initialise Macenko with a synthetic neutral H&E reference patch.
-    For best results, replace with a real well-stained representative tile
-    from the training dataset.
-    """
-    ref = np.ones((64, 64, 3), dtype=np.uint8)
-    ref[..., 0] = 210   # R
-    ref[..., 1] = 180   # G
-    ref[..., 2] = 200   # B
-    norm = MacenkoNormalizer()
-    try:
-        norm.fit(ref)
-    except Exception:
-        norm = None
-    return norm
-
-_DEFAULT_NORMALIZER = _build_default_normalizer()
-
-
-# ── Predictor ─────────────────────────────────────────────────────────────────
-class Predictor:
-    def __init__(
-        self,
-        classifier_model_path : str,
-        gland_model_path      : str = None,
-        stain_normalizer      : MacenkoNormalizer = None,
-    ):
-        """
-        2-stage pipeline + morphometric analysis
-        -----------------------------------------
-        Stage 1 — ResNet50 classifier  (best_resnet50.keras)
-            Preprocessing : Macenko stain normalisation → resize 256×256 → /255 → [0,1]
-            Threshold     : 0.3  (sensitivity-optimised)
-            Output        : 'Pathologique' / 'Non Pathologique'
-
-        Stage 2 — Attention U-Net segmentation  (best_attention_unet.keras)
-            Preprocessing : resize 256×256 → /255 → [0,1]   (matches notebook load_sample())
-            Threshold     : 0.3  (sensitivity-optimised; notebook eval uses 0.5)
-            Triggered     : only when classifier prob ≥ 0.3 (medium / high confidence)
-            Custom objects: hybrid_loss, dice_coefficient, dice_loss, iou_metric
-            Architecture  : Attention U-Net — filters (64,128,256,512,1024)
-                            Additive attention gates on all 4 skip connections
-                            SpatialDropout2D, BatchNorm, He-init conv blocks
-                            Output: Conv2D(1, sigmoid) — binary mask (H,W,1)
-
-        Stage 3 — Morphometric analysis  (core/morphometrics.py)
-            Input  : original RGB image + raw sigmoid mask from Stage 2
-            Output : MorphometricReport (gland shapes, architecture, risk flags,
-                     annotated image, tumor crop)
-        """
-        self.clf_model      = load_model(classifier_model_path)
-        self.stain_normalizer = stain_normalizer or _DEFAULT_NORMALIZER
-        logging.info(f"Classifier loaded  : {classifier_model_path}")
-
-        self.gland_model = None
-        if gland_model_path and os.path.exists(gland_model_path):
-            self.gland_model = load_model(
-                gland_model_path,
-                custom_objects=CUSTOM_OBJECTS,
-            )
-            logging.info(f"Gland model loaded : {gland_model_path}")
-        else:
-            logging.warning("Gland model not found — segmentation will be skipped.")
-
-    # ── Helpers ───────────────────────────────────────────────────────────────
-
-    def _read_image(self, image_path: str) -> np.ndarray:
-        """Load image as uint8 RGB, handling 16-bit TIFs gracefully."""
-        img = cv2.imread(image_path, cv2.IMREAD_COLOR)
-        if img is None:
-            raise FileNotFoundError(f"Cannot read image: {image_path}")
-        if img.dtype != np.uint8:
-            img = cv2.normalize(img, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
-        return cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-
-    def _preprocess_for_classifier(self, img_rgb: np.ndarray) -> np.ndarray:
-        """
-        Classifier preprocessing — matches the notebook macenko_preprocess():
-          1. Macenko stain normalisation (uint8 RGB → uint8 RGB)
-          2. Resize to 256 × 256 (INTER_AREA)
-          3. Divide by 255.0  → [0, 1]  (NOT preprocess_input, matching /255 in notebook)
-        """
-        # Step 1: Macenko normalisation
-        img = img_rgb.copy()
-        if self.stain_normalizer is not None:
-            try:
-                img = self.stain_normalizer.transform(img)
-            except Exception as e:
-                logging.warning(f"Macenko normalisation failed ({e}), using raw image.")
-
-        # Step 2+3: resize → normalise
-        img = cv2.resize(img, (CLF_SIZE, CLF_SIZE), interpolation=cv2.INTER_AREA)
-        return np.expand_dims(img.astype(np.float32) / 255.0, axis=0)   # (1,256,256,3)
-
-    def _preprocess_for_gland(self, img_rgb: np.ndarray) -> np.ndarray:
-        """
-        GlandNet preprocessing — matches notebook load_image() exactly:
-            img = cv2.resize(img, (256, 256))
-            img = img / 255.0
-        No stain normalisation here (segmentation model trained on raw images).
-        """
-        img = cv2.resize(img_rgb, (GLAND_SIZE, GLAND_SIZE), interpolation=cv2.INTER_AREA)
-        return np.expand_dims(img.astype(np.float32) / 255.0, axis=0)   # (1,256,256,3)
-
-    def _apply_overlay(self, img_rgb: np.ndarray, mask: np.ndarray) -> np.ndarray:
-        """Blend orange mask + contour border over the original image."""
-        h, w     = img_rgb.shape[:2]
-        mask_rs  = cv2.resize(mask, (w, h), interpolation=cv2.INTER_LINEAR)
-        mask_bin = (mask_rs > SEG_THRESHOLD).astype(np.uint8)
-        colored  = np.zeros_like(img_rgb)
-        colored[mask_bin == 1] = GLAND_COLOR
-        overlay  = cv2.addWeighted(img_rgb.copy(), 1.0, colored, OVERLAY_ALPHA, 0)
-        contours, _ = cv2.findContours(mask_bin, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        cv2.drawContours(overlay, contours, -1, GLAND_COLOR, 2)
-        return overlay
-
-    @staticmethod
-    def _compute_dice_proxy(pred_mask: np.ndarray) -> float:
-        """
-        Coverage-based quality proxy (no ground truth at inference).
-        Scores near-empty and near-full masks low; peaks at ~35% coverage.
-        """
-        pred_bin = (pred_mask > SEG_THRESHOLD).astype(np.float32)
-        coverage = pred_bin.mean()
-        ideal    = 0.35
-        proxy    = float(1.0 - abs(coverage - ideal) / max(ideal, 1.0 - ideal))
-        proxy    = max(0.0, min(1.0, proxy))
-        logging.info(f"  Gland coverage={coverage*100:.1f}%  dice_proxy={proxy:.3f}")
-        return proxy
-
-    @staticmethod
-    def _confidence_tier(prob: float) -> str:
-        if prob >= CONF_HIGH:
-            return "high"
-        elif prob >= CONF_MEDIUM:
-            return "medium"
-        return "low"
-
-    @staticmethod
-    def _qualitative_assessment(dice: float) -> str:
-        if dice >= DICE_GOOD:
-            return "Good segmentation — gland boundaries clearly defined"
-        elif dice >= DICE_OK:
-            return "Acceptable segmentation — minor boundary ambiguity"
-        return "Poor segmentation — gland boundaries unclear"
-
-    # ── Public API ────────────────────────────────────────────────────────────
-
-    def predict(self, image_path: str) -> dict:
-        """
-        Run the full 3-stage pipeline.
-
-        Returns
-        -------
-        dict with keys:
-            label            str
-            probability      float
-            confidence_tier  str    'high' / 'medium' / 'low'
-            segmented        bool
-            overlay          ndarray (H,W,3) uint8
-            gland_dice       float | None
-            gland_quality    str   | None
-            gland_mask       ndarray (256,256) float32 | None
-            morpho_report    MorphometricReport | None
-        """
-        result = dict(
-            label           = None,
-            probability     = None,
-            confidence_tier = None,
-            segmented       = False,
-            overlay         = None,
-            gland_dice      = None,
-            gland_quality   = None,
-            gland_mask      = None,
-            morpho_report   = None,
-        )
-
-        # ── Stage 1: Classification ───────────────────────────────────────────
-        img_rgb = self._read_image(image_path)
-        prob    = float(
-            self.clf_model.predict(
-                self._preprocess_for_classifier(img_rgb), verbose=0
-            )[0][0]
-        )
-        label = "Pathologique" if prob >= CLF_THRESHOLD else "Non Pathologique"
-        tier  = self._confidence_tier(prob)
-
-        result.update(
-            label           = label,
-            probability     = prob,
-            confidence_tier = tier,
-            overlay         = img_rgb.copy(),
-        )
-        logging.info(
-            f"[{os.path.basename(image_path)}] "
-            f"Stage 1 → {label} | prob={prob:.4f} | tier={tier}"
-        )
-
-        # ── Stage 2: Gland segmentation ───────────────────────────────────────
-        should_segment = tier in ("high", "medium") and self.gland_model is not None
-        if not should_segment:
-            reason = "low confidence" if tier == "low" else "gland model unavailable"
-            logging.info(f"  Stage 2 skipped — {reason}")
-            return result
-
-        gland_input = self._preprocess_for_gland(img_rgb)               # (1,256,256,3)
-        gland_out   = self.gland_model.predict(gland_input, verbose=0)  # (1,256,256,1)
-        gland_mask  = gland_out[0, ..., 0]                              # (256,256) float32
-
-        dice    = self._compute_dice_proxy(gland_mask)
-        quality = self._qualitative_assessment(dice)
-
-        result.update(
-            segmented     = True,
-            overlay       = self._apply_overlay(img_rgb, gland_mask),
-            gland_dice    = dice,
-            gland_quality = quality,
-            gland_mask    = gland_mask,
-        )
-        logging.info(f"  Stage 2 → dice_proxy={dice:.4f} | {quality}")
-
-        # ── Stage 3: Morphometric analysis ────────────────────────────────────
-        try:
-            morpho = morpho_analyze(img_rgb, gland_mask)
-            result["morpho_report"] = morpho
-            arch = morpho.architecture
-            logging.info(
-                f"  Stage 3 → glands={arch.gland_count} "
-                f"buds={arch.tumor_bud_count} "
-                f"cribriform={arch.cribriform_score:.2f} "
-                f"crowding={arch.crowding_index:.2f}"
-            )
-        except Exception as e:
-            logging.warning(f"  Stage 3 morphometrics failed: {e}")
-            result["morpho_report"] = None
-
-        return result

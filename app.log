@@ -395,3 +395,483 @@
 2026-05-10 19:45:38,664 - INFO -   Gland coverage=23.0%  dice_proxy=0.815
 2026-05-10 19:45:38,674 - INFO -   Stage 2 \u2192 dice_proxy=0.8150 | Good segmentation — gland boundaries clearly defined
 2026-05-10 19:45:38,691 - INFO -   Stage 3 \u2192 glands=8 buds=0 cribriform=0.00 crowding=0.00
+2026-05-11 18:11:43,440 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-11 18:11:44,531 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-11 18:11:44,532 - INFO - Model type         : attention_unet
+2026-05-11 18:11:46,656 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-11 18:11:48,164 - INFO - [testA_5.bmp] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-11 18:11:49,316 - INFO -   Gland coverage=44.0%  dice_proxy=0.861
+2026-05-11 18:11:49,328 - INFO -   Stage 2 \u2192 dice_proxy=0.8612 | Good segmentation — gland boundaries clearly defined
+2026-05-11 18:11:49,344 - INFO -   Stage 3 \u2192 glands=6 buds=4 cribriform=0.00 crowding=0.00
+2026-05-11 18:11:53,106 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-11 18:11:53,106 - INFO - Model type         : unetplusplus
+2026-05-11 18:11:53,107 - WARNING - Gland model not found — segmentation will be skipped.
+2026-05-11 18:11:54,569 - INFO - [testA_5.bmp] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-11 18:11:54,569 - INFO -   Stage 2 skipped — gland model unavailable
+2026-05-11 18:12:17,479 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-11 18:12:17,480 - INFO - Model type         : attention_unet
+2026-05-11 18:12:18,839 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-11 18:12:20,023 - INFO - [testA_5.bmp] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-11 18:12:20,993 - WARNING - 5 out of the last 5 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x00000240A7393B50> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-05-11 18:12:21,010 - INFO -   Gland coverage=44.0%  dice_proxy=0.861
+2026-05-11 18:12:21,017 - INFO -   Stage 2 \u2192 dice_proxy=0.8612 | Good segmentation — gland boundaries clearly defined
+2026-05-11 18:12:21,027 - INFO -   Stage 3 \u2192 glands=6 buds=4 cribriform=0.00 crowding=0.00
+2026-05-11 18:14:16,991 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-11 18:14:16,991 - INFO - Model type         : attention_unet
+2026-05-11 18:14:18,539 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-11 18:14:19,753 - WARNING - 6 out of the last 6 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x00000240A7392F80> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-05-11 18:14:19,772 - INFO - [testA_9.bmp] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-11 18:14:20,792 - INFO -   Gland coverage=28.8%  dice_proxy=0.904
+2026-05-11 18:14:20,799 - INFO -   Stage 2 \u2192 dice_proxy=0.9044 | Good segmentation — gland boundaries clearly defined
+2026-05-11 18:14:20,809 - INFO -   Stage 3 \u2192 glands=9 buds=5 cribriform=0.00 crowding=0.00
+2026-05-11 19:31:13,307 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-11 19:31:14,013 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-11 19:31:15,614 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-11 19:31:16,840 - INFO - [colonca3.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-11 19:31:17,822 - INFO -   Gland coverage=80.1%  dice_proxy=0.306
+2026-05-11 19:31:17,836 - INFO -   Stage 2 \u2192 dice_proxy=0.3057 | Poor segmentation — gland boundaries unclear
+2026-05-11 19:31:17,852 - INFO -   Stage 3 \u2192 glands=5 buds=1 cribriform=0.00 crowding=0.00
+2026-05-11 19:31:52,831 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-11 19:31:54,269 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-11 19:31:55,508 - INFO - [colonn4.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-11 19:31:56,515 - INFO -   Gland coverage=34.7%  dice_proxy=0.996
+2026-05-11 19:31:56,523 - INFO -   Stage 2 \u2192 dice_proxy=0.9961 | Good segmentation — gland boundaries clearly defined
+2026-05-11 19:31:56,536 - INFO -   Stage 3 \u2192 glands=4 buds=2 cribriform=0.00 crowding=0.00
+2026-05-11 19:49:18,796 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-11 19:49:20,214 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-11 19:49:21,424 - WARNING - 5 out of the last 5 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000002B927096560> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-05-11 19:49:21,442 - INFO - [colonn2.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-11 19:49:22,578 - WARNING - 6 out of the last 6 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000002B9270964D0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-05-11 19:49:22,595 - INFO -   Gland coverage=32.7%  dice_proxy=0.965
+2026-05-11 19:49:22,603 - INFO -   Stage 2 \u2192 dice_proxy=0.9651 | Good segmentation — gland boundaries clearly defined
+2026-05-11 19:49:22,619 - INFO -   Stage 3 \u2192 glands=6 buds=6 cribriform=0.00 crowding=0.00
+2026-05-11 19:49:29,524 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-11 19:49:30,864 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-11 19:49:32,206 - INFO - [colonn1.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-11 19:49:33,216 - INFO -   Gland coverage=27.7%  dice_proxy=0.888
+2026-05-11 19:49:33,224 - INFO -   Stage 2 \u2192 dice_proxy=0.8881 | Good segmentation — gland boundaries clearly defined
+2026-05-11 19:49:33,237 - INFO -   Stage 3 \u2192 glands=10 buds=2 cribriform=0.00 crowding=0.00
+2026-05-11 19:49:42,429 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-11 19:49:43,699 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-11 19:49:44,917 - INFO - [colonn7.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-11 19:49:45,885 - INFO -   Gland coverage=42.0%  dice_proxy=0.892
+2026-05-11 19:49:45,895 - INFO -   Stage 2 \u2192 dice_proxy=0.8921 | Good segmentation — gland boundaries clearly defined
+2026-05-11 19:49:45,910 - INFO -   Stage 3 \u2192 glands=10 buds=0 cribriform=0.00 crowding=0.00
+2026-05-11 20:04:52,358 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-11 20:04:53,619 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-11 20:04:54,848 - INFO - [colonn16.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-11 20:04:55,863 - INFO -   Gland coverage=54.9%  dice_proxy=0.695
+2026-05-11 20:04:55,875 - INFO -   Stage 2 \u2192 dice_proxy=0.6945 | Acceptable segmentation — minor boundary ambiguity
+2026-05-11 20:04:55,890 - INFO -   Stage 3 \u2192 glands=14 buds=2 cribriform=0.00 crowding=0.00
+2026-05-11 20:05:04,782 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-11 20:05:06,104 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-11 20:05:07,364 - INFO - [colonca4.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-11 20:05:08,695 - INFO -   Gland coverage=70.3%  dice_proxy=0.457
+2026-05-11 20:05:08,708 - INFO -   Stage 2 \u2192 dice_proxy=0.4570 | Poor segmentation — gland boundaries unclear
+2026-05-11 20:05:08,723 - INFO -   Stage 3 \u2192 glands=2 buds=0 cribriform=0.00 crowding=0.00
+2026-05-11 20:05:16,400 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-11 20:05:17,686 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-11 20:05:19,423 - INFO - [colonca15.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-11 20:05:20,839 - INFO -   Gland coverage=76.8%  dice_proxy=0.357
+2026-05-11 20:05:20,865 - INFO -   Stage 2 \u2192 dice_proxy=0.3568 | Poor segmentation — gland boundaries unclear
+2026-05-11 20:05:20,896 - INFO -   Stage 3 \u2192 glands=3 buds=4 cribriform=0.00 crowding=0.00
+2026-05-12 14:20:48,326 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-12 14:20:49,385 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-12 14:20:51,486 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 14:20:52,715 - INFO - [GT2000000-1-400-001.png] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 14:20:53,841 - INFO -   Gland coverage=70.7%  dice_proxy=0.451
+2026-05-12 14:20:53,854 - INFO -   Stage 2 \u2192 dice_proxy=0.4508 | Poor segmentation — gland boundaries unclear
+2026-05-12 14:20:53,865 - INFO -   Stage 3 \u2192 glands=6 buds=0 cribriform=0.00 crowding=0.00
+2026-05-12 14:21:27,936 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-12 14:21:29,515 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 14:21:30,806 - INFO - [colonn4.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 14:21:31,847 - INFO -   Gland coverage=34.7%  dice_proxy=0.996
+2026-05-12 14:21:31,858 - INFO -   Stage 2 \u2192 dice_proxy=0.9961 | Good segmentation — gland boundaries clearly defined
+2026-05-12 14:21:31,872 - INFO -   Stage 3 \u2192 glands=4 buds=2 cribriform=0.00 crowding=0.00
+2026-05-12 14:29:41,096 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-12 14:29:41,819 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-12 14:29:43,422 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 14:29:44,677 - INFO - [colonn4.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 14:29:45,674 - INFO -   Gland coverage=34.7%  dice_proxy=0.996
+2026-05-12 14:29:45,684 - INFO -   Stage 2 \u2192 dice_proxy=0.9961 | Good segmentation — gland boundaries clearly defined
+2026-05-12 14:29:45,697 - INFO -   Stage 3 \u2192 glands=4 buds=2 cribriform=0.00 crowding=0.00
+2026-05-12 15:05:00,857 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-12 15:05:01,975 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-12 15:05:04,692 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 15:05:07,161 - INFO - [colonn1.jpeg] Stage 1 \u2192 Pathologique | prob=0.9999 | tier=high
+2026-05-12 15:05:08,651 - INFO -   Gland coverage=27.7%  dice_proxy=0.888
+2026-05-12 15:05:08,679 - INFO -   Stage 2 \u2192 dice_proxy=0.8881 | Good segmentation — gland boundaries clearly defined
+2026-05-12 15:05:08,725 - INFO -   Stage 3 \u2192 glands=10 buds=2 cribriform=0.00 crowding=0.00
+2026-05-12 15:10:44,014 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-12 15:10:44,826 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_256.keras
+2026-05-12 15:10:46,448 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 15:10:47,718 - INFO - [colonn4.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 15:10:48,732 - INFO -   Gland coverage=34.7%  dice_proxy=0.996
+2026-05-12 15:10:48,741 - INFO -   Stage 2 \u2192 dice_proxy=0.9961 | Good segmentation — gland boundaries clearly defined
+2026-05-12 15:10:48,754 - INFO -   Stage 3 \u2192 glands=4 buds=2 cribriform=0.00 crowding=0.00
+2026-05-12 18:39:52,252 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-12 18:39:52,744 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:39:54,434 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:39:57,235 - INFO - [colonn1.jpeg] Stage 1 \u2192 Non Pathologique | prob=0.0000 | tier=low
+2026-05-12 18:39:57,235 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 18:40:04,736 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:40:06,284 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:40:08,295 - INFO - [colonn4.jpeg] Stage 1 \u2192 Non Pathologique | prob=0.0000 | tier=low
+2026-05-12 18:40:08,295 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 18:40:18,314 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:40:19,664 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:40:21,649 - INFO - [colonn3.jpeg] Stage 1 \u2192 Non Pathologique | prob=0.0000 | tier=low
+2026-05-12 18:40:21,649 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 18:40:31,388 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:40:32,982 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:40:35,116 - INFO - [colonca3.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 18:40:36,123 - WARNING - 5 out of the last 5 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000013B456F0820> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-05-12 18:40:36,141 - INFO -   Gland coverage=80.1%  dice_proxy=0.306
+2026-05-12 18:40:36,167 - INFO -   Stage 2 \u2192 dice_proxy=0.3057 | Poor segmentation — gland boundaries unclear
+2026-05-12 18:40:36,197 - INFO -   Stage 3 \u2192 glands=5 buds=1 cribriform=0.00 crowding=0.00
+2026-05-12 18:41:26,274 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:41:27,500 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:41:29,457 - WARNING - 6 out of the last 6 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000013B2317B400> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-05-12 18:41:29,473 - INFO - [testA_10.bmp] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 18:41:30,522 - INFO -   Gland coverage=93.1%  dice_proxy=0.107
+2026-05-12 18:41:30,534 - INFO -   Stage 2 \u2192 dice_proxy=0.1068 | Poor segmentation — gland boundaries unclear
+2026-05-12 18:41:30,547 - INFO -   Stage 3 \u2192 glands=4 buds=0 cribriform=0.00 crowding=0.00
+2026-05-12 18:41:48,811 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:41:50,057 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:41:52,088 - INFO - [testA_2.bmp] Stage 1 \u2192 Pathologique | prob=0.9998 | tier=high
+2026-05-12 18:41:53,074 - INFO -   Gland coverage=61.9%  dice_proxy=0.586
+2026-05-12 18:41:53,079 - INFO -   Stage 2 \u2192 dice_proxy=0.5862 | Acceptable segmentation — minor boundary ambiguity
+2026-05-12 18:41:53,085 - INFO -   Stage 3 \u2192 glands=1 buds=0 cribriform=0.00 crowding=0.00
+2026-05-12 18:42:07,367 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:42:08,741 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:42:10,770 - INFO - [testA_12.bmp] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 18:42:11,861 - INFO -   Gland coverage=90.1%  dice_proxy=0.152
+2026-05-12 18:42:11,870 - INFO -   Stage 2 \u2192 dice_proxy=0.1517 | Poor segmentation — gland boundaries unclear
+2026-05-12 18:42:11,882 - INFO -   Stage 3 \u2192 glands=3 buds=0 cribriform=0.00 crowding=0.00
+2026-05-12 18:42:16,755 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:42:18,040 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:42:20,128 - INFO - [testA_12.bmp] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 18:42:21,139 - INFO -   Gland coverage=90.1%  dice_proxy=0.152
+2026-05-12 18:42:21,150 - INFO -   Stage 2 \u2192 dice_proxy=0.1517 | Poor segmentation — gland boundaries unclear
+2026-05-12 18:42:21,163 - INFO -   Stage 3 \u2192 glands=3 buds=0 cribriform=0.00 crowding=0.00
+2026-05-12 18:42:42,628 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:42:43,978 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:42:46,340 - INFO - [testA_25.bmp] Stage 1 \u2192 Pathologique | prob=0.7923 | tier=high
+2026-05-12 18:42:47,458 - INFO -   Gland coverage=89.5%  dice_proxy=0.162
+2026-05-12 18:42:47,468 - INFO -   Stage 2 \u2192 dice_proxy=0.1616 | Poor segmentation — gland boundaries unclear
+2026-05-12 18:42:47,480 - INFO -   Stage 3 \u2192 glands=2 buds=0 cribriform=0.00 crowding=0.00
+2026-05-12 18:43:04,552 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:43:05,821 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:43:07,865 - INFO - [testA_31.bmp] Stage 1 \u2192 Pathologique | prob=0.9990 | tier=high
+2026-05-12 18:43:08,901 - INFO -   Gland coverage=66.0%  dice_proxy=0.523
+2026-05-12 18:43:08,910 - INFO -   Stage 2 \u2192 dice_proxy=0.5231 | Acceptable segmentation — minor boundary ambiguity
+2026-05-12 18:43:08,921 - INFO -   Stage 3 \u2192 glands=3 buds=0 cribriform=0.00 crowding=0.00
+2026-05-12 18:43:41,970 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:43:43,481 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:43:45,631 - INFO - [testA_43.bmp] Stage 1 \u2192 Non Pathologique | prob=0.0083 | tier=low
+2026-05-12 18:43:45,631 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 18:43:56,519 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:43:57,795 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:43:59,904 - INFO - [testB_13.bmp] Stage 1 \u2192 Pathologique | prob=0.9997 | tier=high
+2026-05-12 18:44:00,917 - INFO -   Gland coverage=67.1%  dice_proxy=0.507
+2026-05-12 18:44:00,926 - INFO -   Stage 2 \u2192 dice_proxy=0.5067 | Acceptable segmentation — minor boundary ambiguity
+2026-05-12 18:44:00,938 - INFO -   Stage 3 \u2192 glands=7 buds=2 cribriform=0.00 crowding=0.00
+2026-05-12 18:44:32,138 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:44:33,389 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:44:35,410 - INFO - [testA_5.bmp] Stage 1 \u2192 Non Pathologique | prob=0.0005 | tier=low
+2026-05-12 18:44:35,410 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 18:44:43,539 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:44:44,918 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:44:47,001 - INFO - [testA_9.bmp] Stage 1 \u2192 Non Pathologique | prob=0.0119 | tier=low
+2026-05-12 18:44:47,001 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 18:44:55,138 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:44:56,380 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:44:58,465 - INFO - [testA_1.bmp] Stage 1 \u2192 Non Pathologique | prob=0.2088 | tier=low
+2026-05-12 18:44:58,465 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 18:45:06,582 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:45:07,973 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:45:10,015 - INFO - [testA_7.bmp] Stage 1 \u2192 Non Pathologique | prob=0.0033 | tier=low
+2026-05-12 18:45:10,015 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 18:45:20,066 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:45:21,420 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:45:23,813 - INFO - [testA_19.bmp] Stage 1 \u2192 Pathologique | prob=0.9982 | tier=high
+2026-05-12 18:45:24,911 - INFO -   Gland coverage=62.7%  dice_proxy=0.574
+2026-05-12 18:45:24,920 - INFO -   Stage 2 \u2192 dice_proxy=0.5737 | Acceptable segmentation — minor boundary ambiguity
+2026-05-12 18:45:24,930 - INFO -   Stage 3 \u2192 glands=5 buds=2 cribriform=0.00 crowding=0.00
+2026-05-12 18:45:57,745 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:45:59,297 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:46:01,783 - INFO - [testA_27.bmp] Stage 1 \u2192 Pathologique | prob=0.5928 | tier=medium
+2026-05-12 18:46:02,974 - INFO -   Gland coverage=47.8%  dice_proxy=0.802
+2026-05-12 18:46:02,981 - INFO -   Stage 2 \u2192 dice_proxy=0.8024 | Good segmentation — gland boundaries clearly defined
+2026-05-12 18:46:02,989 - INFO -   Stage 3 \u2192 glands=4 buds=1 cribriform=0.00 crowding=0.00
+2026-05-12 18:46:23,013 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:46:24,398 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:46:26,740 - INFO - [testA_40.bmp] Stage 1 \u2192 Pathologique | prob=0.9961 | tier=high
+2026-05-12 18:46:27,943 - INFO -   Gland coverage=67.4%  dice_proxy=0.502
+2026-05-12 18:46:27,957 - INFO -   Stage 2 \u2192 dice_proxy=0.5015 | Acceptable segmentation — minor boundary ambiguity
+2026-05-12 18:46:27,972 - INFO -   Stage 3 \u2192 glands=6 buds=2 cribriform=0.00 crowding=0.00
+2026-05-12 18:46:44,165 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:46:45,790 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:46:47,889 - INFO - [train_56.bmp] Stage 1 \u2192 Pathologique | prob=0.9996 | tier=high
+2026-05-12 18:46:48,861 - INFO -   Gland coverage=39.1%  dice_proxy=0.937
+2026-05-12 18:46:48,868 - INFO -   Stage 2 \u2192 dice_proxy=0.9366 | Good segmentation — gland boundaries clearly defined
+2026-05-12 18:46:48,876 - INFO -   Stage 3 \u2192 glands=3 buds=2 cribriform=0.00 crowding=0.00
+2026-05-12 18:47:15,306 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:47:16,608 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:47:18,611 - INFO - [train_4.bmp] Stage 1 \u2192 Pathologique | prob=0.9516 | tier=high
+2026-05-12 18:47:19,616 - INFO -   Gland coverage=47.8%  dice_proxy=0.803
+2026-05-12 18:47:19,624 - INFO -   Stage 2 \u2192 dice_proxy=0.8031 | Good segmentation — gland boundaries clearly defined
+2026-05-12 18:47:19,634 - INFO -   Stage 3 \u2192 glands=3 buds=3 cribriform=0.00 crowding=0.00
+2026-05-12 18:47:35,925 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:47:37,182 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:47:39,171 - INFO - [GT2001837-1-400-004.png] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 18:47:40,193 - INFO -   Gland coverage=67.9%  dice_proxy=0.493
+2026-05-12 18:47:40,194 - INFO -   Stage 2 \u2192 dice_proxy=0.4935 | Poor segmentation — gland boundaries unclear
+2026-05-12 18:47:40,196 - INFO -   Stage 3 \u2192 glands=4 buds=0 cribriform=0.00 crowding=0.00
+2026-05-12 18:47:57,676 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:47:59,031 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:48:01,210 - INFO - [GT2000000-1-400-003.png] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 18:48:02,288 - INFO -   Gland coverage=75.9%  dice_proxy=0.371
+2026-05-12 18:48:02,290 - INFO -   Stage 2 \u2192 dice_proxy=0.3708 | Poor segmentation — gland boundaries unclear
+2026-05-12 18:48:02,292 - INFO -   Stage 3 \u2192 glands=5 buds=1 cribriform=0.00 crowding=0.00
+2026-05-12 18:50:49,171 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_kaggle.keras
+2026-05-12 18:50:50,440 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 18:50:52,346 - INFO - [GT2000000-1-400-004.png] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 18:50:53,383 - INFO -   Gland coverage=65.6%  dice_proxy=0.529
+2026-05-12 18:50:53,385 - INFO -   Stage 2 \u2192 dice_proxy=0.5292 | Acceptable segmentation — minor boundary ambiguity
+2026-05-12 18:50:53,387 - INFO -   Stage 3 \u2192 glands=3 buds=0 cribriform=0.00 crowding=0.00
+2026-05-12 20:40:15,804 - WARNING - TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+2026-05-12 20:40:16,271 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 20:40:17,852 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 20:40:19,916 - INFO - [colonn3.jpeg] Stage 1 \u2192 Non Pathologique | prob=0.0000 | tier=low
+2026-05-12 20:40:19,916 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 20:40:25,719 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 20:40:27,113 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 20:40:28,977 - INFO - [colonn4.jpeg] Stage 1 \u2192 Non Pathologique | prob=0.0000 | tier=low
+2026-05-12 20:40:28,977 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 20:40:38,505 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 20:40:39,745 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 20:40:41,634 - INFO - [colonca4.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 20:40:42,677 - INFO -   Gland coverage=70.3%  dice_proxy=0.457
+2026-05-12 20:40:42,690 - INFO -   Stage 2 \u2192 dice_proxy=0.4570 | Poor segmentation — gland boundaries unclear
+2026-05-12 20:40:42,707 - INFO -   Stage 3 \u2192 glands=2 buds=0 cribriform=0.00 crowding=0.00
+2026-05-12 20:40:57,001 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 20:40:58,461 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 20:41:00,444 - WARNING - 5 out of the last 5 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000001F378EB9B40> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-05-12 20:41:00,461 - INFO - [testA_10.bmp] Stage 1 \u2192 Non Pathologique | prob=0.0392 | tier=low
+2026-05-12 20:41:00,461 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 20:41:08,952 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 20:41:10,203 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 20:41:12,093 - WARNING - 6 out of the last 6 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000001F3782BF520> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-05-12 20:41:12,112 - INFO - [testA_21.bmp] Stage 1 \u2192 Pathologique | prob=0.9963 | tier=high
+2026-05-12 20:41:13,116 - INFO -   Gland coverage=94.7%  dice_proxy=0.081
+2026-05-12 20:41:13,127 - INFO -   Stage 2 \u2192 dice_proxy=0.0808 | Poor segmentation — gland boundaries unclear
+2026-05-12 20:41:13,139 - INFO -   Stage 3 \u2192 glands=2 buds=0 cribriform=0.00 crowding=0.00
+2026-05-12 20:41:27,343 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 20:41:28,570 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 20:41:30,495 - INFO - [testA_5.bmp] Stage 1 \u2192 Pathologique | prob=0.4258 | tier=medium
+2026-05-12 20:41:31,537 - INFO -   Gland coverage=44.0%  dice_proxy=0.861
+2026-05-12 20:41:31,545 - INFO -   Stage 2 \u2192 dice_proxy=0.8612 | Good segmentation — gland boundaries clearly defined
+2026-05-12 20:41:31,556 - INFO -   Stage 3 \u2192 glands=6 buds=4 cribriform=0.00 crowding=0.00
+2026-05-12 20:41:51,012 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 20:41:52,307 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 20:41:54,392 - INFO - [testA_9.bmp] Stage 1 \u2192 Non Pathologique | prob=0.0006 | tier=low
+2026-05-12 20:41:54,392 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 20:41:59,633 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 20:42:00,911 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 20:42:02,789 - INFO - [testA_1.bmp] Stage 1 \u2192 Non Pathologique | prob=0.0007 | tier=low
+2026-05-12 20:42:02,790 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 20:42:09,125 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 20:42:10,462 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 20:42:12,662 - INFO - [testA_40.bmp] Stage 1 \u2192 Pathologique | prob=0.9986 | tier=high
+2026-05-12 20:42:13,767 - INFO -   Gland coverage=67.4%  dice_proxy=0.502
+2026-05-12 20:42:13,776 - INFO -   Stage 2 \u2192 dice_proxy=0.5015 | Acceptable segmentation — minor boundary ambiguity
+2026-05-12 20:42:13,786 - INFO -   Stage 3 \u2192 glands=6 buds=2 cribriform=0.00 crowding=0.00
+2026-05-12 20:42:24,799 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 20:42:26,044 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 20:42:28,124 - INFO - [testA_60.bmp] Stage 1 \u2192 Pathologique | prob=0.7319 | tier=medium
+2026-05-12 20:42:29,096 - INFO -   Gland coverage=29.2%  dice_proxy=0.911
+2026-05-12 20:42:29,102 - INFO -   Stage 2 \u2192 dice_proxy=0.9111 | Good segmentation — gland boundaries clearly defined
+2026-05-12 20:42:29,109 - INFO -   Stage 3 \u2192 glands=9 buds=1 cribriform=0.00 crowding=0.00
+2026-05-12 20:42:50,001 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 20:42:51,225 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 20:42:53,410 - INFO - [testA_52.bmp] Stage 1 \u2192 Non Pathologique | prob=0.0429 | tier=low
+2026-05-12 20:42:53,410 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 20:43:06,087 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 20:43:07,321 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 20:43:09,198 - INFO - [GT2001837-1-400-004.png] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 20:43:10,193 - INFO -   Gland coverage=67.9%  dice_proxy=0.493
+2026-05-12 20:43:10,194 - INFO -   Stage 2 \u2192 dice_proxy=0.4935 | Poor segmentation — gland boundaries unclear
+2026-05-12 20:43:10,196 - INFO -   Stage 3 \u2192 glands=4 buds=0 cribriform=0.00 crowding=0.00
+2026-05-12 20:43:22,364 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 20:43:23,806 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 20:43:25,708 - INFO - [GT2000000-1-400-004.png] Stage 1 \u2192 Non Pathologique | prob=0.2395 | tier=low
+2026-05-12 20:43:25,708 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 20:43:30,855 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 20:43:32,098 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 20:43:34,146 - INFO - [GT2000000-1-400-001.png] Stage 1 \u2192 Non Pathologique | prob=0.0321 | tier=low
+2026-05-12 20:43:34,147 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 20:43:40,799 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 20:43:42,253 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 20:43:44,167 - INFO - [GT2000000-1-400-002.png] Stage 1 \u2192 Non Pathologique | prob=0.1488 | tier=low
+2026-05-12 20:43:44,168 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 21:03:28,566 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 21:03:29,791 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 21:03:31,670 - INFO - [GT2013119-1-400-001.png] Stage 1 \u2192 Non Pathologique | prob=0.0109 | tier=low
+2026-05-12 21:03:31,670 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 21:32:15,365 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 21:32:16,890 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 21:32:18,819 - INFO - [GT2100275-1-400-001.png] Stage 1 \u2192 Pathologique | prob=0.9865 | tier=high
+2026-05-12 21:32:19,793 - INFO -   Gland coverage=55.4%  dice_proxy=0.686
+2026-05-12 21:32:19,794 - INFO -   Stage 2 \u2192 dice_proxy=0.6865 | Acceptable segmentation — minor boundary ambiguity
+2026-05-12 21:32:19,797 - INFO -   Stage 3 \u2192 glands=11 buds=0 cribriform=0.00 crowding=0.00
+2026-05-12 21:32:35,286 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 21:32:36,610 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 21:32:38,505 - INFO - [GT2017148-2-400-006.png] Stage 1 \u2192 Pathologique | prob=0.9939 | tier=high
+2026-05-12 21:32:39,474 - INFO -   Gland coverage=67.9%  dice_proxy=0.494
+2026-05-12 21:32:39,475 - INFO -   Stage 2 \u2192 dice_proxy=0.4938 | Poor segmentation — gland boundaries unclear
+2026-05-12 21:32:39,477 - INFO -   Stage 3 \u2192 glands=6 buds=1 cribriform=0.00 crowding=0.00
+2026-05-12 22:19:25,399 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 22:19:26,717 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 22:19:28,650 - INFO - [GT2017148-2-400-005.png] Stage 1 \u2192 Non Pathologique | prob=0.0370 | tier=low
+2026-05-12 22:19:28,650 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 22:20:02,254 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 22:20:03,655 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 22:20:05,639 - INFO - [GT2017148-2-400-006.png] Stage 1 \u2192 Pathologique | prob=0.9939 | tier=high
+2026-05-12 22:20:06,774 - INFO -   Gland coverage=67.9%  dice_proxy=0.494
+2026-05-12 22:20:06,775 - INFO -   Stage 2 \u2192 dice_proxy=0.4938 | Poor segmentation — gland boundaries unclear
+2026-05-12 22:20:06,778 - INFO -   Stage 3 \u2192 glands=6 buds=1 cribriform=0.00 crowding=0.00
+2026-05-12 22:20:18,821 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 22:20:20,059 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 22:20:21,998 - INFO - [GTxc2012827-2-400-002.png] Stage 1 \u2192 Non Pathologique | prob=0.0001 | tier=low
+2026-05-12 22:20:21,998 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 22:21:52,911 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 22:21:54,255 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 22:21:56,395 - INFO - [GT2100256-1-400-005.png] Stage 1 \u2192 Non Pathologique | prob=0.0001 | tier=low
+2026-05-12 22:21:56,396 - INFO -   Stage 2 skipped — low confidence
+2026-05-12 22:26:15,821 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 22:26:17,054 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 22:26:18,936 - INFO - [GT2001837-1-400-003.png] Stage 1 \u2192 Pathologique | prob=0.9985 | tier=high
+2026-05-12 22:26:19,901 - INFO -   Gland coverage=58.3%  dice_proxy=0.641
+2026-05-12 22:26:19,902 - INFO -   Stage 2 \u2192 dice_proxy=0.6412 | Acceptable segmentation — minor boundary ambiguity
+2026-05-12 22:26:19,904 - INFO -   Stage 3 \u2192 glands=2 buds=1 cribriform=0.00 crowding=0.00
+2026-05-12 22:26:38,931 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 22:26:40,443 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 22:26:42,415 - INFO - [GT2001838-1-400-003.png] Stage 1 \u2192 Pathologique | prob=0.9997 | tier=high
+2026-05-12 22:26:43,403 - INFO -   Gland coverage=75.1%  dice_proxy=0.383
+2026-05-12 22:26:43,405 - INFO -   Stage 2 \u2192 dice_proxy=0.3834 | Poor segmentation — gland boundaries unclear
+2026-05-12 22:26:43,406 - INFO -   Stage 3 \u2192 glands=2 buds=0 cribriform=0.00 crowding=0.00
+2026-05-12 22:26:57,471 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 22:26:58,767 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 22:27:00,745 - INFO - [GT2001849-1-400-009.png] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 22:27:01,812 - INFO -   Gland coverage=47.0%  dice_proxy=0.815
+2026-05-12 22:27:01,814 - INFO -   Stage 2 \u2192 dice_proxy=0.8155 | Good segmentation — gland boundaries clearly defined
+2026-05-12 22:27:01,815 - INFO -   Stage 3 \u2192 glands=4 buds=2 cribriform=0.00 crowding=0.00
+2026-05-12 22:27:13,549 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 22:27:14,756 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 22:27:16,656 - INFO - [GT2001849-1-400-006.png] Stage 1 \u2192 Pathologique | prob=0.9994 | tier=high
+2026-05-12 22:27:17,650 - INFO -   Gland coverage=64.5%  dice_proxy=0.546
+2026-05-12 22:27:17,651 - INFO -   Stage 2 \u2192 dice_proxy=0.5457 | Acceptable segmentation — minor boundary ambiguity
+2026-05-12 22:27:17,653 - INFO -   Stage 3 \u2192 glands=2 buds=1 cribriform=0.00 crowding=0.00
+2026-05-12 22:27:36,354 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 22:27:37,683 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 22:27:39,731 - INFO - [Colorectal_adenocarcinoma_--_high_mag.jpg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 22:27:40,843 - INFO -   Gland coverage=77.0%  dice_proxy=0.354
+2026-05-12 22:27:41,075 - INFO -   Stage 2 \u2192 dice_proxy=0.3537 | Poor segmentation — gland boundaries unclear
+2026-05-12 22:27:41,404 - INFO -   Stage 3 \u2192 glands=18 buds=1 cribriform=0.00 crowding=0.01
+2026-05-12 22:27:51,143 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 22:27:52,354 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 22:27:54,471 - INFO - [Colorectal_adenocarcinoma_-_alt_--_high_mag.jpg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 22:27:55,525 - INFO -   Gland coverage=67.6%  dice_proxy=0.499
+2026-05-12 22:27:55,740 - INFO -   Stage 2 \u2192 dice_proxy=0.4992 | Poor segmentation — gland boundaries unclear
+2026-05-12 22:27:56,016 - INFO -   Stage 3 \u2192 glands=5 buds=2 cribriform=0.00 crowding=0.00
+2026-05-12 22:28:12,669 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 22:28:14,192 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 22:28:16,275 - INFO - [Colorectal_adenocarcinoma_--_intermed_mag.jpg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 22:28:17,289 - INFO -   Gland coverage=85.8%  dice_proxy=0.218
+2026-05-12 22:28:17,537 - INFO -   Stage 2 \u2192 dice_proxy=0.2183 | Poor segmentation — gland boundaries unclear
+2026-05-12 22:28:17,843 - INFO -   Stage 3 \u2192 glands=9 buds=0 cribriform=0.00 crowding=0.00
+2026-05-12 22:30:15,796 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 22:30:17,036 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 22:30:19,040 - INFO - [Colorectal_adenocarcinoma_--_low_mag.jpg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-12 22:30:20,043 - INFO -   Gland coverage=81.5%  dice_proxy=0.285
+2026-05-12 22:30:20,284 - INFO -   Stage 2 \u2192 dice_proxy=0.2854 | Poor segmentation — gland boundaries unclear
+2026-05-12 22:30:20,584 - INFO -   Stage 3 \u2192 glands=12 buds=5 cribriform=0.00 crowding=0.00
+2026-05-12 22:36:56,646 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-12 22:36:57,971 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-12 22:37:00,081 - INFO - [Colorectal_adenocarcinoma_-_alt_--_low_mag.jpg] Stage 1 \u2192 Pathologique | prob=0.9988 | tier=high
+2026-05-12 22:37:01,110 - INFO -   Gland coverage=74.8%  dice_proxy=0.387
+2026-05-12 22:37:01,353 - INFO -   Stage 2 \u2192 dice_proxy=0.3873 | Poor segmentation — gland boundaries unclear
+2026-05-12 22:37:01,642 - INFO -   Stage 3 \u2192 glands=10 buds=1 cribriform=0.00 crowding=0.00
+2026-05-13 09:06:19,794 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-13 09:06:21,659 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-13 09:06:24,069 - INFO - [WhatsApp Image 2026-05-06 at 14.04.18.jpeg] Stage 1 \u2192 Pathologique | prob=0.9958 | tier=high
+2026-05-13 09:06:25,458 - INFO -   Gland coverage=26.2%  dice_proxy=0.864
+2026-05-13 09:06:25,471 - INFO -   Stage 2 \u2192 dice_proxy=0.8641 | Good segmentation — gland boundaries clearly defined
+2026-05-13 09:06:25,490 - INFO -   Stage 3 \u2192 glands=7 buds=1 cribriform=0.00 crowding=0.00
+2026-05-13 09:06:36,686 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-13 09:06:38,257 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-13 09:06:40,619 - INFO - [WhatsApp Image 2026-05-06 at 14.03.52.jpeg] Stage 1 \u2192 Pathologique | prob=0.9994 | tier=high
+2026-05-13 09:06:41,692 - INFO -   Gland coverage=36.3%  dice_proxy=0.980
+2026-05-13 09:06:41,705 - INFO -   Stage 2 \u2192 dice_proxy=0.9805 | Good segmentation — gland boundaries clearly defined
+2026-05-13 09:06:41,725 - INFO -   Stage 3 \u2192 glands=13 buds=7 cribriform=0.00 crowding=0.01
+2026-05-13 09:06:58,988 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-13 09:07:00,548 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-13 09:07:02,931 - INFO - [WhatsApp Image 2026-05-06 at 14.03.52.jpeg] Stage 1 \u2192 Pathologique | prob=0.9994 | tier=high
+2026-05-13 09:07:04,057 - INFO -   Gland coverage=36.3%  dice_proxy=0.980
+2026-05-13 09:07:04,072 - INFO -   Stage 2 \u2192 dice_proxy=0.9805 | Good segmentation — gland boundaries clearly defined
+2026-05-13 09:07:04,092 - INFO -   Stage 3 \u2192 glands=13 buds=7 cribriform=0.00 crowding=0.01
+2026-05-13 09:07:11,856 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-13 09:07:13,250 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-13 09:07:15,360 - INFO - [WhatsApp Image 2026-05-06 at 14.02.48.jpeg] Stage 1 \u2192 Pathologique | prob=0.9985 | tier=high
+2026-05-13 09:07:16,563 - INFO -   Gland coverage=28.4%  dice_proxy=0.899
+2026-05-13 09:07:16,575 - INFO -   Stage 2 \u2192 dice_proxy=0.8991 | Good segmentation — gland boundaries clearly defined
+2026-05-13 09:07:16,592 - INFO -   Stage 3 \u2192 glands=10 buds=0 cribriform=0.00 crowding=0.00
+2026-05-13 09:07:30,477 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-13 09:07:31,800 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-13 09:07:34,048 - INFO - [WhatsApp Image 2026-05-06 at 14.02.13.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-13 09:07:35,101 - INFO -   Gland coverage=56.3%  dice_proxy=0.673
+2026-05-13 09:07:35,117 - INFO -   Stage 2 \u2192 dice_proxy=0.6729 | Acceptable segmentation — minor boundary ambiguity
+2026-05-13 09:07:35,139 - INFO -   Stage 3 \u2192 glands=7 buds=1 cribriform=0.00 crowding=0.00
+2026-05-13 09:07:59,899 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-13 09:08:01,265 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-13 09:08:03,402 - INFO - [WhatsApp Image 2026-05-06 at 14.02.22.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-13 09:08:04,468 - INFO -   Gland coverage=59.0%  dice_proxy=0.630
+2026-05-13 09:08:04,485 - INFO -   Stage 2 \u2192 dice_proxy=0.6303 | Acceptable segmentation — minor boundary ambiguity
+2026-05-13 09:08:04,505 - INFO -   Stage 3 \u2192 glands=5 buds=3 cribriform=0.00 crowding=0.00
+2026-05-13 09:08:12,146 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-13 09:08:13,479 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-13 09:08:15,588 - INFO - [WhatsApp Image 2026-05-06 at 14.01.52.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-13 09:08:16,727 - INFO -   Gland coverage=33.9%  dice_proxy=0.983
+2026-05-13 09:08:16,740 - INFO -   Stage 2 \u2192 dice_proxy=0.9828 | Good segmentation — gland boundaries clearly defined
+2026-05-13 09:08:16,759 - INFO -   Stage 3 \u2192 glands=15 buds=5 cribriform=0.00 crowding=0.01
+2026-05-13 09:09:51,325 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-13 09:09:52,737 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-13 09:09:55,071 - INFO - [qWhatsApp Image 2026-05-06 at 14.01.52.jpeg] Stage 1 \u2192 Pathologique | prob=1.0000 | tier=high
+2026-05-13 09:09:56,281 - INFO -   Gland coverage=31.8%  dice_proxy=0.950
+2026-05-13 09:09:56,314 - INFO -   Stage 2 \u2192 dice_proxy=0.9503 | Good segmentation — gland boundaries clearly defined
+2026-05-13 09:09:56,342 - INFO -   Stage 3 \u2192 glands=12 buds=6 cribriform=0.00 crowding=0.00
+2026-05-13 09:10:18,854 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-13 09:10:20,188 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-13 09:10:22,274 - INFO - [WhatsApp Image 2026-05-06 at 14.01.13 (1).jpeg] Stage 1 \u2192 Pathologique | prob=0.9999 | tier=high
+2026-05-13 09:10:23,354 - INFO -   Gland coverage=41.9%  dice_proxy=0.894
+2026-05-13 09:10:23,368 - INFO -   Stage 2 \u2192 dice_proxy=0.8943 | Good segmentation — gland boundaries clearly defined
+2026-05-13 09:10:23,389 - INFO -   Stage 3 \u2192 glands=10 buds=3 cribriform=0.00 crowding=0.02
+2026-05-13 09:11:06,709 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-13 09:11:08,345 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-13 09:11:10,535 - INFO - [qWhatsApp Image 2026-05-06 at 14.01.13 (1).jpeg] Stage 1 \u2192 Pathologique | prob=0.9993 | tier=high
+2026-05-13 09:11:11,589 - INFO -   Gland coverage=44.6%  dice_proxy=0.852
+2026-05-13 09:11:11,602 - INFO -   Stage 2 \u2192 dice_proxy=0.8517 | Good segmentation — gland boundaries clearly defined
+2026-05-13 09:11:11,623 - INFO -   Stage 3 \u2192 glands=11 buds=2 cribriform=0.00 crowding=0.00
+2026-05-13 09:12:08,513 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-13 09:12:09,987 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-13 09:12:12,115 - INFO - [WhatsApp Image 2026-05-06 at 14.04.24.jpeg] Stage 1 \u2192 Pathologique | prob=0.9999 | tier=high
+2026-05-13 09:12:13,284 - INFO -   Gland coverage=35.5%  dice_proxy=0.993
+2026-05-13 09:12:13,297 - INFO -   Stage 2 \u2192 dice_proxy=0.9930 | Good segmentation — gland boundaries clearly defined
+2026-05-13 09:12:13,315 - INFO -   Stage 3 \u2192 glands=12 buds=5 cribriform=0.00 crowding=0.00
+2026-05-13 09:13:16,800 - INFO - Classifier loaded  : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_resnet50_simple.keras
+2026-05-13 09:13:18,122 - INFO - Gland model loaded : C:\Users\MicroTech\Desktop\PFE\PathoVision\ui\..\models\best_attention_unet.keras
+2026-05-13 09:13:20,247 - INFO - [qWhatsApp Image 2026-05-06 at 14.04.24.jpeg] Stage 1 \u2192 Pathologique | prob=0.9997 | tier=high
+2026-05-13 09:13:21,302 - INFO -   Gland coverage=33.1%  dice_proxy=0.970
+2026-05-13 09:13:21,314 - INFO -   Stage 2 \u2192 dice_proxy=0.9705 | Good segmentation — gland boundaries clearly defined
+2026-05-13 09:13:21,330 - INFO -   Stage 3 \u2192 glands=13 buds=5 cribriform=0.00 crowding=0.00

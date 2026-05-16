@@ -39,7 +39,7 @@ class LoginWindow(QWidget):
         # Logo image (logo.png dropped in assets/)
         logo_lbl = QLabel()
         logo_lbl.setAlignment(Qt.AlignCenter)
-        pix = QPixmap("assets/logo.png")
+        pix = QPixmap("assets/logo4.png")
         if not pix.isNull():
             logo_lbl.setPixmap(pix.scaled(256, 256, Qt.KeepAspectRatio, Qt.SmoothTransformation))
         else:

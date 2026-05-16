@@ -27,7 +27,7 @@ class HomePage(QWidget):
         root.setContentsMargins(0, 0, 0, 0)
         root.setSpacing(0)
 
-        # ── Navbar ────────────────────────────────────────────────────────────
+        # Navbar (unchanged)
         navbar = QFrame()
         navbar.setObjectName("navbar")
         navbar.setFixedHeight(60)
@@ -35,15 +35,14 @@ class HomePage(QWidget):
         nl.setContentsMargins(32, 0, 32, 0)
         nl.setSpacing(0)
 
-        # Logo + wordmark
         logo_lbl = QLabel()
-        pix = QPixmap("assets/logo3.png")
+        pix = QPixmap("assets/logo1.png")
         if not pix.isNull():
-            logo_lbl.setPixmap(pix.scaled(120, 80, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+            logo_lbl.setPixmap(pix.scaled(60, 60, Qt.KeepAspectRatio, Qt.SmoothTransformation))
 
         brand_col = QVBoxLayout()
         brand_col.setSpacing(0)
-        brand_col.setContentsMargins(0, 0, 0, 0)
+        brand_col.setContentsMargins(0, 5, 0, 5)
         brand_name = QLabel("ColxPath")
         brand_name.setObjectName("navBrand")
         brand_sub = QLabel("PATHOLOGY PLATFORM")
@@ -70,7 +69,7 @@ class HomePage(QWidget):
         nl.addWidget(logout_btn)
         root.addWidget(navbar)
 
-        # ── Content ───────────────────────────────────────────────────────────
+        # Content
         content = QWidget()
         content.setObjectName("homeContent")
         cl = QVBoxLayout(content)
@@ -101,8 +100,9 @@ class HomePage(QWidget):
             desc="Analyze H&E stained tissue samples\nfor cancer classification.",
             callback=self.go_histology.emit,
             btn_label="Open",
-            accent=C["primary"],
+            accent="#3b82f6"
         ))
+
         cards_row.addWidget(self._card(
             icon_file="assets/icon_ihc.png",
             fallback_char="I",
@@ -110,8 +110,9 @@ class HomePage(QWidget):
             desc="Quantify DAB staining and extract\nimmunohistochemical markers.",
             callback=self.go_ihc.emit,
             btn_label="Open",
-            accent="#059669",
+            accent="#14b8a6"
         ))
+
         cards_row.addWidget(self._card(
             icon_file="assets/icon_history.png",
             fallback_char="R",
@@ -119,13 +120,13 @@ class HomePage(QWidget):
             desc="Browse past analyses and\npatient history.",
             callback=self.go_history.emit,
             btn_label="Open",
-            accent="#7C3AED",
+            accent="#a855f7"
         ))
-
+        
         cl.addLayout(cards_row)
         root.addWidget(content, 1)
 
-        # ── Footer ────────────────────────────────────────────────────────────
+        # Footer (unchanged)
         footer = QFrame()
         footer.setObjectName("footer")
         footer.setFixedHeight(38)
@@ -142,23 +143,24 @@ class HomePage(QWidget):
         card = QFrame()
         card.setObjectName("card")
         card.setFixedSize(268, 296)
+
         cl = QVBoxLayout(card)
         cl.setAlignment(Qt.AlignTop)
         cl.setSpacing(0)
         cl.setContentsMargins(0, 0, 0, 0)
 
-        # Accent stripe at top
+        # === Accent Stripe ===
         stripe = QFrame()
-        stripe.setFixedHeight(4)
-        stripe.setStyleSheet(f"background: {accent}; border-radius: 0px;")
+        stripe.setFixedHeight(5)
+        stripe.setStyleSheet(f"background: {accent}; border: none; border-top-left-radius: 12px; border-top-right-radius: 12px;")
         cl.addWidget(stripe)
 
+        # Inner Content
         inner = QVBoxLayout()
         inner.setAlignment(Qt.AlignCenter)
-        inner.setSpacing(10)
+        inner.setSpacing(12)
         inner.setContentsMargins(26, 24, 26, 22)
 
-        # Icon
         icon_lbl = QLabel()
         icon_lbl.setAlignment(Qt.AlignCenter)
         pix = QPixmap(icon_file)
@@ -187,7 +189,8 @@ class HomePage(QWidget):
                 color: {accent};
                 border: 1.5px solid {accent};
                 border-radius: 7px;
-                font-size: 13px; font-weight: 600;
+                font-size: 13px; 
+                font-weight: 600;
             }}
             QPushButton:hover {{
                 background: {accent};
@@ -202,28 +205,39 @@ class HomePage(QWidget):
         inner.addStretch()
         inner.addWidget(btn)
         cl.addLayout(inner)
+
+        # === Hover Style (No size shift) ===
+        card.setStyleSheet(f"""
+            QFrame#card {{
+                border: 2px solid transparent;
+                border-radius: 12px;
+                background: {C['card']};
+            }}
+            QFrame#card:hover {{
+                border: 2px solid {accent};
+                background: #F8FAFF;
+            }}
+        """)
+
         return card
 
 
 # ── Home-specific extra styles ─────────────────────────────────────────────────
 _HOME_EXTRA = f"""
-    #homeContent {{ background: {C['surface']}; }}
+    #homeContent {{ 
+        background: {C['surface']}; 
+    }}
 
-    #card {{
-        background: {C['card']};
-        border: 1px solid {C['border']};
-        border-radius: 12px;
-    }}
-    #card:hover {{
-        border-color: {C['primary']};
-        background: #FAFCFF;
-    }}
     #cardTitle {{
-        font-size: 15px; font-weight: 700;
-        color: {C['ink']}; letter-spacing: -0.1px;
+        font-size: 15px; 
+        font-weight: 700;
+        color: {C['ink']}; 
+        letter-spacing: -0.1px;
     }}
+
     #cardDesc {{
-        font-size: 12px; color: {C['ink_soft']};
-        line-height: 1.6;
+        font-size: 12.5px; 
+        color: {C['ink_soft']};
+        line-height: 1.55;
     }}
 """

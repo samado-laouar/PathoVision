@@ -147,8 +147,8 @@ class PatientHistory(QWidget):
 
 # ── Extra styles ───────────────────────────────────────────────────────────────
 _PH_EXTRA = f"""
-    QWidget {{ background: {C['surface']}; }}
-    #phContent {{ background: {C['surface']}; }}
+    QWidget {{  }}
+    #phContent {{  }}
 
     #pdfBtn {{
         background: rgba(255,255,255,0.08);

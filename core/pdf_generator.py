@@ -1,5 +1,5 @@
 """
-PDF report generator for PathoVision.
+PDF report generator for ColxPath.
 Requires: reportlab  (pip install reportlab)
 """
 import os
@@ -60,7 +60,7 @@ def generate_patient_report(patient: dict, analyses: list, output_path: str = No
     story = []
 
     # ── Header ────────────────────────────────────────────────────
-    story.append(Paragraph("🔬  PathoVision", title_style))
+    story.append(Paragraph("🔬  ColxPath", title_style))
     story.append(Paragraph("AI-Powered Cancer Detection Platform", body_style))
     story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor("#2E86C1")))
     story.append(Spacer(1, 0.4*cm))
@@ -153,7 +153,7 @@ def generate_patient_report(patient: dict, analyses: list, output_path: str = No
     story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#D5D8DC")))
     story.append(Spacer(1, 0.2*cm))
     story.append(Paragraph(
-        "This report was generated automatically by PathoVision. "
+        "This report was generated automatically by ColxPath. "
         "It is intended to assist medical professionals and does not replace clinical judgment.",
         ParagraphStyle("Disclaimer", parent=styles["Normal"],
                        fontSize=8, textColor=colors.HexColor("#AAB7B8"),

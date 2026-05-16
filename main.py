@@ -38,7 +38,7 @@ class AppWindow(QStackedWidget):
 
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("PathoVision — AI Cancer Detection")
+        self.setWindowTitle("ColxPath — AI Cancer Detection")
         self.doctor = None
 
         # Auth pages (no doctor context yet)

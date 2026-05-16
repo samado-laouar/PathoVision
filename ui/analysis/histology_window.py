@@ -15,7 +15,7 @@ from ui.patients.patient_selector import PatientSelector
 from ui._style import BASE_QSS, C
 
 _MODELS_DIR      = os.path.join(os.path.dirname(os.path.dirname(__file__)), "..", "models")
-MODEL_PATH       = os.path.join(_MODELS_DIR, "best_resnet50_256.keras")
+MODEL_PATH       = os.path.join(_MODELS_DIR, "colon_cancer_final.keras")
 GLAND_MODEL_PATH = os.path.join(_MODELS_DIR, "best_attention_unet.keras")
 
 

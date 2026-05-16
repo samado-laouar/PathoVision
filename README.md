@@ -1,8 +1,8 @@
-# 🔬 PathoVision
+# 🔬 ColxPath
 
 **AI-Powered Cancer Detection Platform for Pathology Professionals**
 
-PathoVision is a desktop application built with PySide6 that assists pathologists and oncologists in analyzing histology and IHC (immunohistochemistry) tissue images using AI and computer vision.
+ColxPath is a desktop application built with PySide6 that assists pathologists and oncologists in analyzing histology and IHC (immunohistochemistry) tissue images using AI and computer vision.
 
 ---
 
@@ -20,7 +20,7 @@ PathoVision is a desktop application built with PySide6 that assists pathologist
 ## Project Structure
 
 ```
-PathoVision/
+ColxPath/
 ├── main.py                        # App entry point
 ├── core/
 │   ├── dab_extractor.py           # DAB/brown stain CV analysis
@@ -68,7 +68,7 @@ pip install PySide6 opencv-python numpy tensorflow reportlab
 1. Clone the repository:
 ```bash
 git clone https://github.com/samado-laouar/PathoVision.git
-cd PathoVision
+cd ColxPath
 ```
 
 2. Add your trained Keras model:
